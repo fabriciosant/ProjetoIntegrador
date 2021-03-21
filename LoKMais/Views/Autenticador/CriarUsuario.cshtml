@@ -1,0 +1,46 @@
+﻿@model LoKMais.Models.ViewModels.UsuarioViewModel
+@{
+    ViewData["Title"] = "Criar Usuario";
+}
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-center font-weight-bold">Cadastro de usuário</h3>
+    </div>
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form asp-action="CriarUsuario">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label asp-for="Cpf" class="control-label"></label>
+                            <input asp-for="Cpf" class="form-control mask-cpf" />
+                            <span class="font-italic text-black-50">Digite apenas números, sem pontos ou hífen</span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label asp-for="Senha" class="control-label"></label>
+                            <input asp-for="Senha" class="form-control" />
+                            <span class="font-italic text-black-50">Sua senha deve conter letra maiúscula, minúscula e 8 digitos, ex.: Senha123</span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label asp-for="ConfirmarSenha" class="control-label"></label>
+                            <input asp-for="ConfirmarSenha" class="form-control" />
+                            <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row m-0 form-group">
+                        <input type="submit" class="btn btn-success font-weight-bold col" value="Finalizar cadastro" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

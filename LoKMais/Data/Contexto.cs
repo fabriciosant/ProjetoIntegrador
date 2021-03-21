@@ -13,5 +13,6 @@ namespace LoKMais.Data
     {
         public Contexto(DbContextOptions<Contexto> options): base(options) { }
 
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }

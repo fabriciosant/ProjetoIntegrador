@@ -12,7 +12,7 @@ namespace LoKMais
         {
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
-                //.WriteTo.Console()
+                .WriteTo.Console()
                 .WriteTo.File("logs\\log-.txt", rollingInterval:RollingInterval.Day)
                 .CreateLogger();
 
@@ -34,7 +34,7 @@ namespace LoKMais
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            //.useSeriolg()
+            .UseSerilog()
             .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
     }
 }

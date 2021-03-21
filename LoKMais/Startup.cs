@@ -42,8 +42,8 @@ namespace LoKMais
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/Autenticador/Login");
-                options.LogoutPath = new PathString("Autenticador/Logout");
-                options.AccessDeniedPath = new PathString("Autenticador/AcessoNegado");
+                options.LogoutPath = new PathString("/Autenticador/Logout");
+                options.AccessDeniedPath = new PathString("/Autenticador/AcessoNegado");
                 options.ExpireTimeSpan = TimeSpan.FromDays(5);
                 options.SlidingExpiration = true;
             });
@@ -87,7 +87,7 @@ namespace LoKMais
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Autenticador}/{action=Login}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 
@@ -122,7 +122,7 @@ namespace LoKMais
                 var cpf = new CPF("064.608.675-85");
                 cpf.SemFormatacao();
 
-                var usuario = new Usuario  
+                var usuario = new Usuario(cpf.Codigo)  
                 {
                     Email = "Fabriciosan47@gmail.com"
                 };

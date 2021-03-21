@@ -8,6 +8,10 @@ namespace LoKMais.Models
 {
     public class Usuario : IdentityUser<Guid>
     {
+        public Usuario(string userName) : base(userName)
+        {
+        }
+
         public string NomeCompleto { get; set; }
         public string Endereco { get; set; }
     }

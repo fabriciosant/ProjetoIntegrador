@@ -28,7 +28,7 @@ namespace LoKMais
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Contexto>(options => options.UseSqlServer(Configuration.GetConnectionString("DBLokMais"), p => p.MigrationsHistoryTable("HistoricoDasMigrastions", "LokMais"))).AddIdentity<Usuario, IdentityRole<Guid>>(options =>
+            services.AddDbContext<Contexto>(options => options.UseSqlServer(Configuration.GetConnectionString("DBLokMais"), p => p.MigrationsHistoryTable("HistoricoDasMigrastions", "LokMais"))).AddIdentity<IdentityUser<Guid>, IdentityRole<Guid>>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -114,7 +114,7 @@ namespace LoKMais
         public async Task CreateAdministradorAsync(IServiceProvider serviceProvider)
         {
             using var contexto = serviceProvider.GetRequiredService<Contexto>();
-            using var userManager = serviceProvider.GetRequiredService<UserManager<Usuario>>();
+            using var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser<Guid>>>();
             var userexists = await userManager.FindByNameAsync("fabriciosa47@gmail.com");
 
             if (userexists == null)
@@ -122,7 +122,7 @@ namespace LoKMais
                 var cpf = new CPF("064.608.675-85");
                 cpf.SemFormatacao();
 
-                var usuario = new Usuario(cpf.Codigo)  
+                var usuario = new IdentityUser<Guid>(cpf.Codigo)  
                 {
                     Email = "Fabriciosan47@gmail.com"
                 };

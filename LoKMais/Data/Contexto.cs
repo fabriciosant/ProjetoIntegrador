@@ -12,7 +12,5 @@ namespace LoKMais.Data
     public class Contexto : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
     {
         public Contexto(DbContextOptions<Contexto> options): base(options) { }
-
-        public DbSet<Usuario> Usuarios { get; set; }
     }
 }

@@ -17,13 +17,13 @@ namespace LoKMais.Controllers
     public class AutenticadorController : Controller
     {
         private readonly IToastNotification _toastNotification;
-        private readonly UserManager<Usuario> _userManager;
-        private readonly SignInManager<Usuario> _signInManager;
+        private readonly UserManager<IdentityUser<Guid>> _userManager;
+        private readonly SignInManager<IdentityUser<Guid>> _signInManager;
         private readonly ILogger<AutenticadorController> _logger;
 
         public AutenticadorController(IToastNotification toastNotification,
-            UserManager<Usuario> userManager,
-            SignInManager<Usuario> signInManager,
+            UserManager<IdentityUser<Guid>> userManager,
+            SignInManager<IdentityUser<Guid>> signInManager,
             ILogger<AutenticadorController> logger)
         {
             _logger = logger;
@@ -117,7 +117,7 @@ namespace LoKMais.Controllers
             var userEmail = await _userManager.FindByEmailAsync(model.Email);
             if (userEmail != null) return View(model);
 
-            var usuario = new Usuario(cpf.Codigo)
+            var usuario = new IdentityUser<Guid>(cpf.Codigo)
             {
                 Email = model.Email
             };
@@ -138,11 +138,11 @@ namespace LoKMais.Controllers
             return RedirectToAction("Usuarios");
         }
         [HttpGet]
-        public async Task<IActionResult> Usuarios()
+        public IActionResult Usuarios()
         {
-            var listaUsuario = await _userManager.Users.ToListAsync();
-            listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
-            return View(listaUsuario);
+            //var listaUsuario = await _userManager.Users.ToListAsync();
+            //listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
+            return View();
         }
 
         protected void AddErrors(IdentityResult result)

@@ -1,8 +1,10 @@
 ﻿using LoKMais.Models;
 using LoKMais.Models.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NToastNotify;
 using System;
@@ -33,6 +35,71 @@ namespace LoKMais.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult AcessoNegado() => View();
+
+        [HttpGet]
+        public async Task<IActionResult> Login(string returnUrl = null)
+        {
+            if (_signInManager.IsSignedIn(User))
+                return RedirectToAction("CriarUsuario", "Autenticador");
+
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        {
+            if (ModelState.IsValid)
+            {
+                var cpf = new CPF(model.Login);
+                cpf.SemFormatacao();
+                var usuario = await _userManager.FindByNameAsync(cpf.Codigo);
+
+                if (usuario == null)
+                {
+                    var mensagemUsuario = "Credenciais Inválidas!";
+                    _toastNotification.AddErrorToastMessage(mensagemUsuario);
+                    ModelState.AddModelError(string.Empty, mensagemUsuario);
+                    return View(model);
+                }
+
+                var result = await _signInManager.PasswordSignInAsync
+                    (
+                        userName: cpf.Codigo,
+                        password: model.Senha,
+                        isPersistent: model.Lembrar,
+                        lockoutOnFailure: true
+                    );
+
+                if (result.Succeeded)
+                {
+                    _toastNotification.AddSuccessToastMessage("Bem Vindo de volta!");
+                    _logger.LogWarning($"Logando Usuario{usuario.UserName}, Email: {usuario.Email}.");
+                    return RedirectToAction("CriarUsuario", "Autenticador");
+                }
+
+                if (result.IsLockedOut)
+                {
+                    var senhaCorreta = await _userManager.CheckPasswordAsync(usuario, model.Senha);
+
+                    if (senhaCorreta)
+                    {
+                        var mensagemUsuarioBloqueado = "Conta esta bloqueada!";
+                        _logger.LogWarning($"Conta bloqueada Usuario: {usuario.UserName}, Mensagem: {mensagemUsuarioBloqueado}.");
+                        _toastNotification.AddErrorToastMessage(mensagemUsuarioBloqueado);
+                        ModelState.AddModelError(string.Empty, mensagemUsuarioBloqueado);
+                    }
+                }
+
+                var mensagemErrorUsuario = "Credenciais inválidas!";
+                _toastNotification.AddErrorToastMessage(mensagemErrorUsuario);
+                ModelState.AddModelError(string.Empty, mensagemErrorUsuario);
+            }
+            return View(model);
+        }
 
         [HttpGet]
         public IActionResult CriarUsuario() => View();
@@ -71,9 +138,11 @@ namespace LoKMais.Controllers
             return RedirectToAction("Usuarios");
         }
         [HttpGet]
-        public IActionResult Usuarios()
+        public async Task<IActionResult> Usuarios()
         {
-            return View();
+            var listaUsuario = await _userManager.Users.ToListAsync();
+            listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
+            return View(listaUsuario);
         }
 
         protected void AddErrors(IdentityResult result)

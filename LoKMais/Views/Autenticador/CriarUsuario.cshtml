@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Criar Usuario";
 }
-<div class="card">
+<div class="card box-shadow">
     <div class="card-header">
         <h3 class="text-center font-weight-bold">Cadastro de usuário</h3>
     </div>
@@ -43,4 +43,14 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="https://cdn.detic.ro.gov.br/vendors/jquerymask/jquery.mask.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.mask-cpf').mask('000.000.000-00');
+        });
+    </script>
+}
 

@@ -9,15 +9,13 @@
     <div class="card-body box-shadow border-bottom">
         <p class="text-black-50">Os campos com "<span class="text-danger">*</span>" são obrigatórios!</p>
         <form asp-action="CriarUsuario">
-            <h2 class="text-muted text-center">Dados pessoais</h2>
-            <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                 <div class="col-md-4 form-group">
                     <label asp-for="Cpf" class="form-check-label">
                         <p class="text-black-50 mb-0 font-weight-bold">CPF<span class="text-danger">*</span></p>
                     </label>
-                    <input asp-for="Cpf" class="form-control" required placeholder="Ex.: 000.000.000-00" />
+                    <input asp-for="Cpf" type="text" class="form-control cpf" required placeholder="Ex.: 000.000.000-00" />
                     <span class="font-italic text-black-50">
                         Digite apenas numeros, sem pontos ou hífen
                     </span>
@@ -26,51 +24,13 @@
                     <label asp-for="Email" class="form-check-label">
                         <p class="text-black-50 mb-0 font-weight-bold">Email<span class="text-danger">*</span></p>
                     </label>
-                    <input asp-for="Email" class="form-control mask-cpf" required placeholder="Ex.: Example@gmail.com" />
+                    <input asp-for="Email" type="email" class="form-control mask-cpf" required placeholder="Ex.: Example@gmail.com" />
                 </div>
                 <div class="col-md-3 form-group">
                     <label asp-for="Telefone" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Telefone<span class="text-danger">*</span></p></label>
-                    <input asp-for="Email" type="tel" class="form-control mask-cpf" required placeholder="Ex.: (90) 91234-1234" />
+                    <input asp-for="Email" type="tel" class="form-control cel" required placeholder="Ex.: (00) 0 0000-0000" />
                 </div>
             </div>
-            @*<h2 class="text-muted text-center">Endereço</h2>
-            <hr />
-            <div class="row">
-                <div class="col-md-3 form-group">
-                    <label asp-for="Cep" class="form-check-label">
-                        <p class="text-black-50 mb-0 font-weight-bold">
-                            CEP<span class="text-danger">*</span>
-                        </p>
-                    </label>
-                    <input asp-for="Cep" type="text" class="form-control" required placeholder="Ex.: 12.345-123" />
-                </div>
-                <div class="col-md-6 form-group">
-                    <label asp-for="Logradouro" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Logradouro</p></label>
-                    <input asp-for="Logradouro" type="text" class="form-control" placeholder="Ex.: Avenida Carlos Gomes" />
-                </div>
-                <div class="col-md-3 form-group">
-                    <label asp-for="Numero" class="form-check-label">
-                        <p class="text-black-50 mb-0 font-weight-bold">Número</p>
-                    </label>
-                    <input asp-for="Numero" type="text" class="form-control" placeholder="Ex.: 1020 ou 1020-A" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label asp-for="Complemento" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Complemento</p></label>
-                    <input asp-for="Complemento" type="text" class="form-control" placeholder="Ex.:Condomínio esquina com mercado" />
-                </div>
-                <div class="col-md-3">
-                    <label asp-for="Bairro" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Bairro</p></label>
-                    <input asp-for="Complemento" type="text" class="form-control" placeholder="Ex.: Jardim Primavera" />
-                </div>
-                <div class="col-md-3">
-                    <label asp-for="Cidade" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Cidade</p></label>
-                    <input asp-for="Cidade" type="text" class="form-control" placeholder="Ex.: Juiz de Fora" />
-                </div>
-            </div>*@
-            <h2 class="text-muted text-center">Crie sua Senha</h2>
-            <hr />
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label asp-for="Senha" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Senha<span class="text-danger">*</span></p></label>
@@ -82,12 +42,21 @@
                     <input asp-for="ConfirmarSenha" type="password" class="form-control" required placeholder="********" />
                 </div>
             </div>
-            <br />
             <div class="row m-0 form-group">
                 <input type="submit" class="btn btn-success font-weight-bold col" value="Finalizar cadastro" />
             </div>
         </form>
     </div>
 </div>
+@section Scripts{
+    <script src="~/js/meiomask.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.cpf').setMask('999.999.999-99')
+            $('.cel').setMask('(99) 9 9999-9999')
+        })
+    </script>
+}
+
 
 

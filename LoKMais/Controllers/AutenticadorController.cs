@@ -17,13 +17,13 @@ namespace LoKMais.Controllers
     public class AutenticadorController : Controller
     {
         private readonly IToastNotification _toastNotification;
-        private readonly UserManager<IdentityUser<Guid>> _userManager;
-        private readonly SignInManager<IdentityUser<Guid>> _signInManager;
+        private readonly UserManager<Usuario> _userManager;
+        private readonly SignInManager<Usuario> _signInManager;
         private readonly ILogger<AutenticadorController> _logger;
 
         public AutenticadorController(IToastNotification toastNotification,
-            UserManager<IdentityUser<Guid>> userManager,
-            SignInManager<IdentityUser<Guid>> signInManager,
+            UserManager<Usuario> userManager,
+            SignInManager<Usuario> signInManager,
             ILogger<AutenticadorController> logger)
         {
             _logger = logger;
@@ -117,7 +117,7 @@ namespace LoKMais.Controllers
             var userEmail = await _userManager.FindByEmailAsync(model.Email);
             if (userEmail != null) return View(model);
 
-            var usuario = new IdentityUser<Guid>(cpf.Codigo)
+            var usuario = new Usuario(cpf.Codigo)
             {
                 Email = model.Email
             };

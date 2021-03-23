@@ -1,5 +1,6 @@
 using LoKMais.Data;
 using LoKMais.Models;
+using LoKMais.Models.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,7 +29,7 @@ namespace LoKMais
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Contexto>(options => options.UseSqlServer(Configuration.GetConnectionString("DBLokMais"), p => p.MigrationsHistoryTable("HistoricoDasMigrastions", "LokMais"))).AddIdentity<IdentityUser<Guid>, IdentityRole<Guid>>(options =>
+            services.AddDbContext<Contexto>(options => options.UseSqlServer(Configuration.GetConnectionString("DBLokMais"), p => p.MigrationsHistoryTable("HistoricoDasMigrastions", "LokMais"))).AddIdentity<Usuario, IdentityRole<Guid>>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -55,7 +56,6 @@ namespace LoKMais
                 });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env, 
             IServiceProvider pro)
@@ -114,7 +114,7 @@ namespace LoKMais
         public async Task CreateAdministradorAsync(IServiceProvider serviceProvider)
         {
             using var contexto = serviceProvider.GetRequiredService<Contexto>();
-            using var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser<Guid>>>();
+            using var userManager = serviceProvider.GetRequiredService<UserManager<Usuario>>();
             var userexists = await userManager.FindByNameAsync("fabriciosa47@gmail.com");
 
             if (userexists == null)
@@ -122,7 +122,7 @@ namespace LoKMais
                 var cpf = new CPF("064.608.675-85");
                 cpf.SemFormatacao();
 
-                var usuario = new IdentityUser<Guid>(cpf.Codigo)  
+                var usuario = new Usuario(cpf.Codigo)  
                 {
                     Email = "Fabriciosan47@gmail.com"
                 };

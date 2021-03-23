@@ -41,6 +41,9 @@ namespace LoKMais.Models.ViewModels
         [RegularExpression(@"[A-Za-z]")]
         public string Complemento { get; set; }
 
+        [Display(Name =("Unidade Federativa"))]
+        public string Uf { get; set; }
+
         [Display(Name = "Bairro")]
         [RegularExpression(@"[A-Za-z]")]
         [Required(ErrorMessage = "É necessário inserir o bairro.")]
@@ -62,5 +65,6 @@ namespace LoKMais.Models.ViewModels
         [Display(Name = "Confirmar Senha", Prompt = "********")]
         [Compare("Senha", ErrorMessage = "Senha nao confere")]
         public string ConfirmarSenha { get; set; }
+
     }
 }

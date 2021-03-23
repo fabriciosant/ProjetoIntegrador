@@ -1,4 +1,5 @@
 ﻿using LoKMais.Models;
+using LoKMais.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,5 +15,7 @@ namespace LoKMais.Data
         public Contexto(DbContextOptions<Contexto> options): base(options) { }
 
         public DbSet<Usuario> Usuarios { get; set; }
+
+        public DbSet<Endereco> Enderecos { get; set; }
     }
 }

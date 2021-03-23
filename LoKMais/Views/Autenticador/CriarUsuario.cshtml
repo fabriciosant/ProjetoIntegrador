@@ -2,55 +2,61 @@
 @{
     ViewData["Title"] = "Criar Usuario";
 }
-<div class="card box-shadow">
-    <div class="card-header">
-        <h3 class="text-center font-weight-bold">Cadastro de usuário</h3>
+<div class="card">
+    <div class="card-header box-shadow bg-info">
+        <h2 class="text-white font-italic text-center">Área de Cadastro</h2>
     </div>
-    <div class="card-body">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <form asp-action="CriarUsuario">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label asp-for="Cpf" class="control-label"></label>
-                            <input asp-for="Cpf" class="form-control mask-cpf" />
-                            <span class="font-italic text-black-50">Digite apenas números, sem pontos ou hífen</span>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label asp-for="Email" class="control-label"></label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label asp-for="Senha" class="control-label"></label>
-                            <input asp-for="Senha" class="form-control" />
-                            <span class="font-italic text-black-50">Sua senha deve conter letra maiúscula, minúscula e 8 digitos, ex.: Senha123</span>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label asp-for="ConfirmarSenha" class="control-label"></label>
-                            <input asp-for="ConfirmarSenha" class="form-control" />
-                            <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row m-0 form-group">
-                        <input type="submit" class="btn btn-success font-weight-bold col" value="Finalizar cadastro" />
-                    </div>
-                </form>
+    <div class="card-body box-shadow border-bottom">
+        <p class="text-black-50">Os campos com "<span class="text-danger">*</span>" são obrigatórios!</p>
+        <form asp-action="CriarUsuario">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label asp-for="Cpf" class="form-check-label">
+                        <p class="text-black-50 mb-0 font-weight-bold">CPF<span class="text-danger">*</span></p>
+                    </label>
+                    <input asp-for="Cpf" type="text" class="form-control cpf" required placeholder="Ex.: 000.000.000-00" />
+                    <span class="font-italic text-black-50">
+                        Digite apenas numeros, sem pontos ou hífen
+                    </span>
+                </div>
+                <div class="col-md-5 form-group">
+                    <label asp-for="Email" class="form-check-label">
+                        <p class="text-black-50 mb-0 font-weight-bold">Email<span class="text-danger">*</span></p>
+                    </label>
+                    <input asp-for="Email" type="email" class="form-control mask-cpf" required placeholder="Ex.: Example@gmail.com" />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label asp-for="Telefone" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Telefone<span class="text-danger">*</span></p></label>
+                    <input asp-for="Email" type="tel" class="form-control cel" required placeholder="Ex.: (00) 0 0000-0000" />
+                </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label asp-for="Senha" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Senha<span class="text-danger">*</span></p></label>
+                    <input asp-for="Senha" type="password" class="form-control" required placeholder="********" />
+                    <span class="text-black-50 font-italic">Sua senha de conter letras maiúsculas, minúsculas e números. Ex.: Senha123</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label asp-for="ConfirmarSenha" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Confirmar Senha<span class="text-danger">*</span></p></label>
+                    <input asp-for="ConfirmarSenha" type="password" class="form-control" required placeholder="********" />
+                </div>
+            </div>
+            <div class="row m-0 form-group">
+                <input type="submit" class="btn btn-success font-weight-bold col" value="Finalizar cadastro" />
+            </div>
+        </form>
     </div>
 </div>
-
 @section Scripts{
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-    <script src="https://cdn.detic.ro.gov.br/vendors/jquerymask/jquery.mask.min.js"></script>
+    <script src="~/js/meiomask.js"></script>
     <script>
         $(document).ready(function () {
-            $('.mask-cpf').mask('000.000.000-00');
-        });
+            $('.cpf').setMask('999.999.999-99')
+            $('.cel').setMask('(99) 9 9999-9999')
+        })
     </script>
 }
+
+
 

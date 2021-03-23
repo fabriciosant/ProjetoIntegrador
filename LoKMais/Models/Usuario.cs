@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LoKMais.Models
+namespace LoKMais.Models.ViewModels
 {
     public class Usuario : IdentityUser<Guid>
     {
@@ -12,7 +13,9 @@ namespace LoKMais.Models
         {
         }
 
-        public string NomeCompleto { get; set; }
-        public string Endereco { get; set; }
+        public string Telefone { get; set; }
+
+        [ForeignKey("EnderecoId")]
+        public Endereco Enderecos { get; set; }
     }
 }

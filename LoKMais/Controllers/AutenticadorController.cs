@@ -138,11 +138,11 @@ namespace LoKMais.Controllers
             return RedirectToAction("Usuarios");
         }
         [HttpGet]
-        public async Task<IActionResult> Usuarios()
+        public IActionResult Usuarios()
         {
-            var listaUsuario = await _userManager.Users.ToListAsync();
-            listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
-            return View(listaUsuario);
+            //var listaUsuario = await _userManager.Users.ToListAsync();
+            //listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
+            return View();
         }
 
         protected void AddErrors(IdentityResult result)

@@ -19,6 +19,39 @@ namespace LoKMais.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("LoKMais.Models.Endereco", b =>
+                {
+                    b.Property<int>("EnderecoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Bairro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cep")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cidade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Complemento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logradouro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Numero")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Uf")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EnderecoId");
+
+                    b.ToTable("Enderecos");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
@@ -220,15 +253,19 @@ namespace LoKMais.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("LoKMais.Models.Usuario", b =>
+            modelBuilder.Entity("LoKMais.Models.ViewModels.Usuario", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser<System.Guid>");
 
-                    b.Property<string>("Endereco")
+                    b.Property<int?>("EnderecoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Telefone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NomeCompleto")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("EnderecoId")
+                        .IsUnique()
+                        .HasFilter("[EnderecoId] IS NOT NULL");
 
                     b.HasDiscriminator().HasValue("Usuario");
                 });
@@ -282,6 +319,13 @@ namespace LoKMais.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LoKMais.Models.ViewModels.Usuario", b =>
+                {
+                    b.HasOne("LoKMais.Models.Endereco", "Enderecos")
+                        .WithOne("Usuario")
+                        .HasForeignKey("LoKMais.Models.ViewModels.Usuario", "EnderecoId");
                 });
 #pragma warning restore 612, 618
         }

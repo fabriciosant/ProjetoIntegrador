@@ -1,5 +1,6 @@
 using LoKMais.Data;
 using LoKMais.Models;
+using LoKMais.Models.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -55,7 +56,6 @@ namespace LoKMais
                 });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env, 
             IServiceProvider pro)

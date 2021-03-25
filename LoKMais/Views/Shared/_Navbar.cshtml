@@ -1,0 +1,40 @@
+﻿<nav  class="row m-0 justify-content-between navbar navbar-dark bg-dark">
+    <div class="d-inline-flex">
+        <div class="nav-item">
+            <a asp-controller="Home" asp-action="Index" class="nav-link text-white">Início <span class="sr-only">(current)</span></a>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="nav-item">
+                <a asp-controller="Catalogo" asp-action="Index" class="nav-link text-white">Veiculos</a>
+            </div>
+        }
+        @if (User.IsInRole("ADMINISTRADOR"))
+        {
+            <div class="nav-item">
+                <a asp-controller="Autenticador" asp-action="Usuarios" class="nav-link text-white">Usuarios</a>
+            </div>
+        }
+    </div>
+    <div class="d-inline-flex align-items-center">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="nav-item">
+                <a asp-controller="Autenticador" asp-action="Login" class="btn btn-sm btn-success font-weight-bold">
+                    ENTRAR
+                </a>
+            </div>
+        }
+        else
+        {
+            <div>
+                <p class="text-white m-0">Usuário: <strong> @(User.IsInRole("ADMINISTRADOR") ? "ADM" : "COTAÇÃO") </strong></p>
+            </div>
+            <form asp-controller="Autenticador" asp-action="Logout">
+                <button class="btn btn-sm btn-warning font-weight-bold mx-3">
+                    SAIR
+                </button>
+            </form>
+        }
+    </div>
+</nav>

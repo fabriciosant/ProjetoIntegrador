@@ -22,6 +22,11 @@ namespace LoKMais.Controllers
         {
             return View();
         }
+        
+        public IActionResult PaginaInicial()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {

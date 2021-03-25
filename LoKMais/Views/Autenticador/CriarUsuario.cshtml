@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Criar Usuario";
 }
-<div class="card">
+<div class="card mt-4">
     <div class="card-header box-shadow bg-info">
         <h2 class="text-white font-italic text-center">Área de Cadastro</h2>
     </div>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <label asp-for="Telefone" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Telefone<span class="text-danger">*</span></p></label>
-                    <input asp-for="Email" type="tel" class="form-control cel" required placeholder="Ex.: (00) 0 0000-0000" />
+                    <input asp-for="Telefone" type="tel" class="form-control cel" required placeholder="Ex.: (00) 0 0000-0000" />
                 </div>
             </div>
             <div class="row">
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="row m-0 form-group">
-                <input type="submit" class="btn btn-success font-weight-bold col" value="Finalizar cadastro" />
+                <input type="submit" class="btn btn-secondary font-weight-bold col" value="Continuar" />
             </div>
         </form>
     </div>

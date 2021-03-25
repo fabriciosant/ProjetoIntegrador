@@ -40,7 +40,7 @@ namespace LoKMais.Controllers
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             if (_signInManager.IsSignedIn(User))
-                return RedirectToAction("CriarUsuario", "Autenticador");
+                return RedirectToAction("Index", "Home");
 
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             ViewData["ReturnUrl"] = returnUrl;
@@ -78,7 +78,7 @@ namespace LoKMais.Controllers
                 {
                     _toastNotification.AddSuccessToastMessage("Bem Vindo de volta!");
                     _logger.LogWarning($"Logando Usuario{usuario.UserName}, Email: {usuario.Email}.");
-                    return RedirectToAction("CriarUsuario", "Autenticador");
+                    return RedirectToAction("PaginaInicial", "Home");
                 }
 
                 if (result.IsLockedOut)
@@ -101,6 +101,19 @@ namespace LoKMais.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Logout(string returnUrl = null)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                await _signInManager.SignOutAsync();
+                _logger.LogWarning($"Logout Usuario: {User.Identity.Name}.");
+            }
+            ViewData["ReturnUrel"] = returnUrl;
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpGet]
         public IActionResult CriarUsuario() => View();
 
@@ -110,16 +123,18 @@ namespace LoKMais.Controllers
         {
             var cpf = new CPF(model.Cpf);
             cpf.SemFormatacao();
-            if (!ModelState.IsValid || !CPF.Validar(cpf.Codigo))
+
+            var userEmail = await _userManager.FindByEmailAsync(model.Email);
+            if (userEmail != null)
             {
+                _toastNotification.AddErrorToastMessage("Email já cadastrado!");
                 return View(model);
             }
-            var userEmail = await _userManager.FindByEmailAsync(model.Email);
-            if (userEmail != null) return View(model);
 
             var usuario = new Usuario(cpf.Codigo)
             {
-                Email = model.Email
+                Email = model.Email,
+                Telefone = model.Telefone
             };
 
             var result = await _userManager.CreateAsync(usuario, model.Senha);
@@ -135,14 +150,14 @@ namespace LoKMais.Controllers
             }
             _logger.LogWarning($"Usuatrio criado com sucesso: Usuario{usuario.UserName}, E-mail {usuario.Email}.");
             _toastNotification.AddSuccessToastMessage("Usuário Criado");
-            return RedirectToAction("Usuarios");
+            return RedirectToAction("Endereco", "Endereco");
         }
         [HttpGet]
-        public IActionResult Usuarios()
+        public async Task<IActionResult> Usuarios()
         {
-            //var listaUsuario = await _userManager.Users.ToListAsync();
-            //listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
-            return View();
+            var listaUsuario = await _userManager.Users.ToListAsync();
+            listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
+            return View(listaUsuario);
         }
 
         protected void AddErrors(IdentityResult result)

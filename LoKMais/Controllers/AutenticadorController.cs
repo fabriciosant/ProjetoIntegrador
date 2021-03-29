@@ -17,13 +17,13 @@ namespace LoKMais.Controllers
     public class AutenticadorController : Controller
     {
         private readonly IToastNotification _toastNotification;
-        private readonly UserManager<Usuario> _userManager;
-        private readonly SignInManager<Usuario> _signInManager;
+        private readonly UserManager<Cliente> _userManager;
+        private readonly SignInManager<Cliente> _signInManager;
         private readonly ILogger<AutenticadorController> _logger;
 
         public AutenticadorController(IToastNotification toastNotification,
-            UserManager<Usuario> userManager,
-            SignInManager<Usuario> signInManager,
+            UserManager<Cliente> userManager,
+            SignInManager<Cliente> signInManager,
             ILogger<AutenticadorController> logger)
         {
             _logger = logger;
@@ -124,33 +124,32 @@ namespace LoKMais.Controllers
             var cpf = new CPF(model.Cpf);
             cpf.SemFormatacao();
 
-            var userEmail = await _userManager.FindByEmailAsync(model.Email);
-            if (userEmail != null)
+            var userExist = await _userManager.FindByNameAsync(model.Cpf);
+            if (userExist != null)
+            {
+                _toastNotification.AddErrorToastMessage("Usuário já cadastrado!");
+                return View(model);
+            }
+            
+            var EmailExist = await _userManager.FindByEmailAsync(model.Email);
+            if (EmailExist != null)
             {
                 _toastNotification.AddErrorToastMessage("Email já cadastrado!");
                 return View(model);
             }
 
-            var usuario = new Usuario(cpf.Codigo)
+            var usuario = new Cliente()
             {
+                UserName = cpf.Codigo, 
                 Email = model.Email,
-                Telefone = model.Telefone
+                PhoneNumber = model.Telefone
             };
 
-            var result = await _userManager.CreateAsync(usuario, model.Senha);
-            var resultRole = await _userManager.AddToRoleAsync(usuario, "LokMais");
-            if (!result.Succeeded)
-            {
-                AddErrors(result);
-                if (!resultRole.Succeeded)
-                {
-                    AddErrors(resultRole);
-                }
-                return View(model);
-            }
+            await _userManager.CreateAsync(usuario, model.Senha);
+            
             _logger.LogWarning($"Usuatrio criado com sucesso: Usuario{usuario.UserName}, E-mail {usuario.Email}.");
             _toastNotification.AddSuccessToastMessage("Usuário Criado");
-            return RedirectToAction("Endereco", "Endereco");
+            return RedirectToAction("CriarEndereco", "Endereco", new { cpf = model.Cpf } );
         }
         [HttpGet]
         public async Task<IActionResult> Usuarios()

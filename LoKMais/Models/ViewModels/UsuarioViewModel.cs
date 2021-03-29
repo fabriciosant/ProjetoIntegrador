@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LoKMais.Models.ViewModels
 {
-    public class UsuarioViewModel
+    public class UsuarioViewModel : Cliente
     {
         [Required(ErrorMessage = "Número de CPF Inválido")]
         [RegularExpression(@"[0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[-][0-9]{2}", ErrorMessage = "Número de CPF Inválido")]
@@ -16,7 +16,7 @@ namespace LoKMais.Models.ViewModels
         [Required(ErrorMessage = "Email inválido")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Informe um Email válido")]
         [Display(Name = "E-mail")]
-        public string Email { get; set; }
+        public override string Email { get; set; }
 
         [Required(ErrorMessage = "Telefone deve conter 9 digitos, ex.:(91234-1234) ")]
         [RegularExpression(@"^([1-9]{2})[0-9]{4,5}-[0-9]{4}$", ErrorMessage ="Telefone inválido")]

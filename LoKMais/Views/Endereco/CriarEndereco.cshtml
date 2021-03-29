@@ -19,32 +19,32 @@
                             CEP<span class="text-danger">*</span>
                         </p>
                     </label>
-                    <input asp-for="Cep" type="text" class="form-control cep" required placeholder="Ex.: 12345-678" />
+                    <input asp-for="Cep" type="text" class="form-control" id="cep" required placeholder="Ex.: 12345-678" />
                     <span class="text-black-50 font-italic">Digite apenas números, sem pontos ou hífen</span>
                 </div>
                 <div class="col-md-6 form-group">
                     <label asp-for="Logradouro" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Logradouro</p></label>
-                    <input asp-for="Logradouro" type="text" class="form-control" placeholder="Ex.: Avenida Carlos Gomes" />
+                    <input asp-for="Logradouro" type="text" class="form-control" id="logradouro" placeholder="Ex.: Avenida Carlos Gomes" />
                 </div>
                 <div class="col-md-3 form-group">
                     <label asp-for="Numero" class="form-check-label">
                         <p class="text-black-50 mb-0 font-weight-bold">Número</p>
                     </label>
-                    <input asp-for="Numero" type="text" class="form-control numeroReside" placeholder="Ex.: 1020" />
+                    <input asp-for="Numero" type="text" class="form-control" placeholder="Ex.: 1020" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-2 form-group">
                     <label asp-for="Uf" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">UF</p></label>
-                    <input asp-for="Uf" type="text" class="form-control" placeholder="Ex.: RO" />
+                    <input asp-for="Uf" type="text" class="form-control" id="uf" placeholder="Ex.: RO" />
                 </div>
                 <div class="col-md-5">
                     <label asp-for="Bairro" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Bairro</p></label>
-                    <input asp-for="Bairro" type="text" class="form-control" placeholder="Ex.: Jardim Primavera" />
+                    <input asp-for="Bairro" type="text" class="form-control" id="bairro" placeholder="Ex.: Jardim Primavera" />
                 </div>
                 <div class="col-md-5">
                     <label asp-for="Cidade" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Cidade</p></label>
-                    <input asp-for="Cidade" type="text" class="form-control" placeholder="Ex.: Juiz de Fora" />
+                    <input asp-for="Cidade" type="text" class="form-control" id="cidade" placeholder="Ex.: Juiz de Fora" />
                 </div>
             </div>
             <div class="row">
@@ -60,9 +60,12 @@
     </div>
 </div>
 @section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/js/meiomask.js"></script>
+    <script src="~/Scripts/ViaCep.js"></script>
     <script>
         $(document).ready(function () {
-            
+            $('#cep').setMask('99999-999')
         })
     </script>
 }

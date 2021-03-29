@@ -9,9 +9,10 @@
     </div>
     <div class="card-body box-shadow border-bottom">
         <p class="text-black-50">Os campos com "<span class="text-danger">*</span>" são obrigatórios!</p>
-        <form asp-action="Endereço" asp-controller="Endereco">
+        <form asp-action="CriarEndereco">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
+                <input name="Cpf" type="hidden" value="@ViewBag.cpf" />
                 <div class="col-md-3 form-group">
                     <label asp-for="Cep" class="form-check-label">
                         <p class="text-black-50 mb-0 font-weight-bold">
@@ -59,10 +60,9 @@
     </div>
 </div>
 @section Scripts{
-    <script src="~/js/meiomask.js"></script>
     <script>
         $(document).ready(function () {
-            $('.cep').setMask('99.999-99')
-        }
+            
+        })
     </script>
 }

@@ -130,26 +130,27 @@ namespace LoKMais.Controllers
                 _toastNotification.AddErrorToastMessage("Usuário já cadastrado!");
                 return View(model);
             }
-            
-            var EmailExist = await _userManager.FindByEmailAsync(model.Email);
-            if (EmailExist != null)
+
+            var Senha = model.Senha;
+            if (Senha != model.ConfirmarSenha)
             {
-                _toastNotification.AddErrorToastMessage("Email já cadastrado!");
-                return View(model);
+                _toastNotification.AddErrorToastMessage("Senhas não conferem!");
             }
-
-            var usuario = new Cliente()
+            else
             {
-                UserName = cpf.Codigo, 
-                Email = model.Email,
-                PhoneNumber = model.Telefone
-            };
+                var usuario = new Cliente()
+                {
+                    UserName = cpf.Codigo,
+                    Email = model.Email,
+                    PhoneNumber = model.Telefone
+                };
+                await _userManager.CreateAsync(usuario, model.Senha);
 
-            await _userManager.CreateAsync(usuario, model.Senha);
-            
-            _logger.LogWarning($"Usuatrio criado com sucesso: Usuario{usuario.UserName}, E-mail {usuario.Email}.");
-            _toastNotification.AddSuccessToastMessage("Usuário Criado");
-            return RedirectToAction("CriarEndereco", "Endereco", new { cpf = model.Cpf } );
+                _logger.LogWarning($"Usuatrio criado com sucesso: Usuario{usuario.UserName}, E-mail {usuario.Email}.");
+                _toastNotification.AddSuccessToastMessage("Usuário Criado");
+                return RedirectToAction("CriarEndereco", "Endereco", new { cpf = model.Cpf });
+            }
+            return View();
         }
         [HttpGet]
         public async Task<IActionResult> Usuarios()

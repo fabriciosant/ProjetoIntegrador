@@ -18,10 +18,10 @@ namespace LoKMais.Models.ViewModels
         [Display(Name = "Cep")]
         public string Cep { get; set; }
 
-        [Required(ErrorMessage = "Digite o logradouro")]
         [Display(Name = "Logradouro")]
         public string Logradouro { get; set; }
 
+        [Required(ErrorMessage = "Digite o número!")]
         [Display(Name = "Número")]
         public string Numero { get; set; }
 

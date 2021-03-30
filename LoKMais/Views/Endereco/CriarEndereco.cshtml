@@ -9,7 +9,7 @@
     </div>
     <div class="card-body box-shadow border-bottom">
         <p class="text-black-50">Os campos com "<span class="text-danger">*</span>" são obrigatórios!</p>
-        <form asp-action="CriarEndereco">
+        <form asp-action="CriarEndereco" asp-controller="Endereco" method="post" autocomplete="off">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                 <input name="Cpf" type="hidden" value="@ViewBag.cpf" />
@@ -30,14 +30,10 @@
                     <label asp-for="Numero" class="form-check-label">
                         <p class="text-black-50 mb-0 font-weight-bold">Número</p>
                     </label>
-                    <input asp-for="Numero" type="text" class="form-control" placeholder="Ex.: 1020" />
+                    <input asp-for="Numero" type="text" class="form-control" required placeholder="Ex.: 1020" />
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2 form-group">
-                    <label asp-for="Uf" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">UF</p></label>
-                    <input asp-for="Uf" type="text" class="form-control" id="uf" placeholder="Ex.: RO" />
-                </div>
                 <div class="col-md-5">
                     <label asp-for="Bairro" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Bairro</p></label>
                     <input asp-for="Bairro" type="text" class="form-control" id="bairro" placeholder="Ex.: Jardim Primavera" />
@@ -45,6 +41,10 @@
                 <div class="col-md-5">
                     <label asp-for="Cidade" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Cidade</p></label>
                     <input asp-for="Cidade" type="text" class="form-control" id="cidade" placeholder="Ex.: Juiz de Fora" />
+                </div>
+                <div class="col-md-2 form-group">
+                    <label asp-for="Uf" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">UF</p></label>
+                    <input asp-for="Uf" type="text" class="form-control" id="uf" placeholder="Ex.: RO" />
                 </div>
             </div>
             <div class="row">
@@ -54,18 +54,12 @@
                 </div>
             </div>
             <div class="row m-0 form-group">
-                <input type="submit" class="btn btn-success font-weight-bold col" value="Continuar" />
+                <input type="submit" class="btn btn-success font-weight-bold col" value="Finalizar cadastro" />
             </div>
         </form>
     </div>
 </div>
 @section Scripts{
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-    <script src="~/js/meiomask.js"></script>
     <script src="~/Scripts/ViaCep.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#cep').setMask('99999-999')
-        })
-    </script>
+    <script src="~/js/meiomask.js"></script>
 }

@@ -13,7 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace LoKMais.Controllers
-{
+{   
     public class AutenticadorController : Controller
     {
         private readonly IToastNotification _toastNotification;
@@ -33,7 +33,6 @@ namespace LoKMais.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult AcessoNegado() => View();
 
         [HttpGet]
@@ -48,8 +47,6 @@ namespace LoKMais.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
@@ -102,7 +99,6 @@ namespace LoKMais.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
             if (User.Identity.IsAuthenticated)
@@ -118,7 +114,6 @@ namespace LoKMais.Controllers
         public IActionResult CriarUsuario() => View();
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CriarUsuario(UsuarioViewModel model)
         {
             var cpf = new CPF(model.Cpf);
@@ -156,7 +151,7 @@ namespace LoKMais.Controllers
         public async Task<IActionResult> Usuarios()
         {
             var listaUsuario = await _userManager.Users.ToListAsync();
-            listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
+            //listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
             return View(listaUsuario);
         }
 

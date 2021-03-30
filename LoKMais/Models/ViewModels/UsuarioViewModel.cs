@@ -6,27 +6,34 @@ using System.Threading.Tasks;
 
 namespace LoKMais.Models.ViewModels
 {
-    public class UsuarioViewModel
+    public class UsuarioViewModel : Cliente
     {
-        [Required(ErrorMessage = "Número de CPF Inválido"), Display(Name = "CPF")]
-        [RegularExpression(@"[0-9]{3}[\.][0-9]{3}[-][0-9]{2}", ErrorMessage = "Número de CPF Inválido")]
+        [Required(ErrorMessage = "Número de CPF Inválido")]
+        [RegularExpression(@"[0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[-][0-9]{2}", ErrorMessage = "Número de CPF Inválido")]
+        [Display(Name = "CPF")]
         public string Cpf { get; set; }
 
-        [Required(ErrorMessage = "Email inválido"), Display(Name = "E-mail")]
+        [Required(ErrorMessage = "Email inválido")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Informe um Email válido")]
-        public string Email { get; set; }
+        [Display(Name = "E-mail")]
+        public override string Email { get; set; }
 
-        [Display(Name = "Senha")]
-        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Telefone deve conter 9 digitos, ex.:(91234-1234) ")]
+        [RegularExpression(@"^([1-9]{2})[0-9]{4,5}-[0-9]{4}$", ErrorMessage ="Telefone inválido")]
+        [Display(Name = "Telefone")]
+        public string Telefone { get; set; }
+
         [Required(ErrorMessage = "Sua senha deve conter letra maiúscula, minúscula e 8 digitos, ex.: Senha123")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*#?&]{8,}$",
         ErrorMessage = "Sua senha deve conter letra maiúscula, minúscula e 8 digitos, ex.: Senha123")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Senha")]
         public string Senha { get; set; }
 
         [Required(ErrorMessage = "Confirmar senha inválido")]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirmar Senha", Prompt = "********")]
         [Compare("Senha", ErrorMessage = "Senha nao confere")]
+        [Display(Name = "Confirmar Senha", Prompt = "********")]
         public string ConfirmarSenha { get; set; }
     }
 }

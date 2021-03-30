@@ -39,10 +39,7 @@ namespace LoKMais.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    NomeCompleto = table.Column<string>(nullable: true),
-                    Endereco = table.Column<string>(nullable: true)
+                    AccessFailedCount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,6 +152,31 @@ namespace LoKMais.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Enderecos",
+                columns: table => new
+                {
+                    EnderecoId = table.Column<Guid>(nullable: false),
+                    Cep = table.Column<string>(nullable: false),
+                    Logradouro = table.Column<string>(nullable: false),
+                    Numero = table.Column<string>(nullable: false),
+                    Complemento = table.Column<string>(nullable: true),
+                    Bairro = table.Column<string>(nullable: false),
+                    Cidade = table.Column<string>(nullable: false),
+                    Uf = table.Column<string>(nullable: false),
+                    ClienteId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enderecos", x => x.EnderecoId);
+                    table.ForeignKey(
+                        name: "FK_Enderecos_AspNetUsers_EnderecoId",
+                        column: x => x.EnderecoId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -211,6 +233,9 @@ namespace LoKMais.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Enderecos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -13,17 +13,17 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace LoKMais.Controllers
-{
+{   
     public class AutenticadorController : Controller
     {
         private readonly IToastNotification _toastNotification;
-        private readonly UserManager<Usuario> _userManager;
-        private readonly SignInManager<Usuario> _signInManager;
+        private readonly UserManager<Cliente> _userManager;
+        private readonly SignInManager<Cliente> _signInManager;
         private readonly ILogger<AutenticadorController> _logger;
 
         public AutenticadorController(IToastNotification toastNotification,
-            UserManager<Usuario> userManager,
-            SignInManager<Usuario> signInManager,
+            UserManager<Cliente> userManager,
+            SignInManager<Cliente> signInManager,
             ILogger<AutenticadorController> logger)
         {
             _logger = logger;
@@ -33,14 +33,13 @@ namespace LoKMais.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult AcessoNegado() => View();
 
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             if (_signInManager.IsSignedIn(User))
-                return RedirectToAction("CriarUsuario", "Autenticador");
+                return RedirectToAction("Index", "Home");
 
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             ViewData["ReturnUrl"] = returnUrl;
@@ -48,8 +47,6 @@ namespace LoKMais.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
@@ -78,7 +75,7 @@ namespace LoKMais.Controllers
                 {
                     _toastNotification.AddSuccessToastMessage("Bem Vindo de volta!");
                     _logger.LogWarning($"Logando Usuario{usuario.UserName}, Email: {usuario.Email}.");
-                    return RedirectToAction("CriarUsuario", "Autenticador");
+                    return RedirectToAction("PaginaInicial", "Home");
                 }
 
                 if (result.IsLockedOut)
@@ -101,47 +98,60 @@ namespace LoKMais.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Logout(string returnUrl = null)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                await _signInManager.SignOutAsync();
+                _logger.LogWarning($"Logout Usuario: {User.Identity.Name}.");
+            }
+            ViewData["ReturnUrel"] = returnUrl;
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpGet]
         public IActionResult CriarUsuario() => View();
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CriarUsuario(UsuarioViewModel model)
         {
             var cpf = new CPF(model.Cpf);
             cpf.SemFormatacao();
-            if (!ModelState.IsValid || !CPF.Validar(cpf.Codigo))
+
+            var userExist = await _userManager.FindByNameAsync(model.Cpf);
+            if (userExist != null)
             {
+                _toastNotification.AddErrorToastMessage("Usuário já cadastrado!");
                 return View(model);
             }
-            var userEmail = await _userManager.FindByEmailAsync(model.Email);
-            if (userEmail != null) return View(model);
 
-            var usuario = new Usuario(cpf.Codigo)
+            var Senha = model.Senha;
+            if (Senha != model.ConfirmarSenha)
             {
-                Email = model.Email
-            };
-
-            var result = await _userManager.CreateAsync(usuario, model.Senha);
-            var resultRole = await _userManager.AddToRoleAsync(usuario, "LokMais");
-            if (!result.Succeeded)
+                _toastNotification.AddErrorToastMessage("Senhas não conferem!");
+            }
+            else
             {
-                AddErrors(result);
-                if (!resultRole.Succeeded)
+                var usuario = new Cliente()
                 {
-                    AddErrors(resultRole);
-                }
-                return View(model);
+                    UserName = cpf.Codigo,
+                    Email = model.Email,
+                    PhoneNumber = model.Telefone
+                };
+                await _userManager.CreateAsync(usuario, model.Senha);
+
+                _logger.LogWarning($"Usuatrio criado com sucesso: Usuario{usuario.UserName}, E-mail {usuario.Email}.");
+                _toastNotification.AddSuccessToastMessage("Usuário Criado");
+                return RedirectToAction("CriarEndereco", "Endereco", new { cpf = model.Cpf });
             }
-            _logger.LogWarning($"Usuatrio criado com sucesso: Usuario{usuario.UserName}, E-mail {usuario.Email}.");
-            _toastNotification.AddSuccessToastMessage("Usuário Criado");
-            return RedirectToAction("Usuarios");
+            return View();
         }
         [HttpGet]
         public async Task<IActionResult> Usuarios()
         {
             var listaUsuario = await _userManager.Users.ToListAsync();
-            listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
+            //listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
             return View(listaUsuario);
         }
 

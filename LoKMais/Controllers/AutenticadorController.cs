@@ -13,7 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace LoKMais.Controllers
-{
+{   
     public class AutenticadorController : Controller
     {
         private readonly IToastNotification _toastNotification;
@@ -33,7 +33,6 @@ namespace LoKMais.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult AcessoNegado() => View();
 
         [HttpGet]
@@ -48,8 +47,6 @@ namespace LoKMais.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
@@ -102,7 +99,6 @@ namespace LoKMais.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
             if (User.Identity.IsAuthenticated)
@@ -118,7 +114,6 @@ namespace LoKMais.Controllers
         public IActionResult CriarUsuario() => View();
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CriarUsuario(UsuarioViewModel model)
         {
             var cpf = new CPF(model.Cpf);
@@ -130,32 +125,33 @@ namespace LoKMais.Controllers
                 _toastNotification.AddErrorToastMessage("Usuário já cadastrado!");
                 return View(model);
             }
-            
-            var EmailExist = await _userManager.FindByEmailAsync(model.Email);
-            if (EmailExist != null)
+
+            var Senha = model.Senha;
+            if (Senha != model.ConfirmarSenha)
             {
-                _toastNotification.AddErrorToastMessage("Email já cadastrado!");
-                return View(model);
+                _toastNotification.AddErrorToastMessage("Senhas não conferem!");
             }
-
-            var usuario = new Cliente()
+            else
             {
-                UserName = cpf.Codigo, 
-                Email = model.Email,
-                PhoneNumber = model.Telefone
-            };
+                var usuario = new Cliente()
+                {
+                    UserName = cpf.Codigo,
+                    Email = model.Email,
+                    PhoneNumber = model.Telefone
+                };
+                await _userManager.CreateAsync(usuario, model.Senha);
 
-            await _userManager.CreateAsync(usuario, model.Senha);
-            
-            _logger.LogWarning($"Usuatrio criado com sucesso: Usuario{usuario.UserName}, E-mail {usuario.Email}.");
-            _toastNotification.AddSuccessToastMessage("Usuário Criado");
-            return RedirectToAction("CriarEndereco", "Endereco", new { cpf = model.Cpf } );
+                _logger.LogWarning($"Usuatrio criado com sucesso: Usuario{usuario.UserName}, E-mail {usuario.Email}.");
+                _toastNotification.AddSuccessToastMessage("Usuário Criado");
+                return RedirectToAction("CriarEndereco", "Endereco", new { cpf = model.Cpf });
+            }
+            return View();
         }
         [HttpGet]
         public async Task<IActionResult> Usuarios()
         {
             var listaUsuario = await _userManager.Users.ToListAsync();
-            listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
+            //listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
             return View(listaUsuario);
         }
 

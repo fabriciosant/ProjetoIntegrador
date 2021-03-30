@@ -14,14 +14,14 @@ namespace LoKMais.Models.ViewModels
         public string Cpf { get; set; }
 
         [Required(ErrorMessage = "Cep invalido")]
-        [RegularExpression(@"[0-9]{2}[\.][0-9]{3}[-][0-9]{3}")]
+        [RegularExpression(@"/^[0-9]{8}$/")]
         [Display(Name = "Cep")]
         public string Cep { get; set; }
 
-        [Required(ErrorMessage = "Digite o logradouro")]
         [Display(Name = "Logradouro")]
         public string Logradouro { get; set; }
 
+        [Required(ErrorMessage = "Digite o número!")]
         [Display(Name = "Número")]
         public string Numero { get; set; }
 

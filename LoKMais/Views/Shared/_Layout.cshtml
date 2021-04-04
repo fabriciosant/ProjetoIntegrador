@@ -3,14 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Lok+</title>
+    <title>@ViewData["Title"] - LokarMais Veiculos</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/ui-lokar.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <partial name="_Header" />
+    <header>
+        <partial name="_Header" />
 
-    <partial name="_Navbar" />
+        <partial name="_Navbar" />
+    </header>
 
     @await Component.InvokeAsync("NToastNotify")
 
@@ -20,15 +25,25 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container text-center">
-            <h5>&copy; 2021 - LoK Mais Veiculos</h5>
+    <footer class="border-top footer text-white-50 bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mt-4">
+                    <h5>&copy; 2021 - LoK Mais Veiculos</h5>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <a href="#," class="text-white"><i class="fa fa-map-marked fa-2x" style="color: #00FA9A"></i>Whatsapp</a>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
- 

@@ -1,40 +1,55 @@
-﻿<nav  class="row m-0 justify-content-between navbar navbar-dark bg-dark">
-    <div class="d-inline-flex">
-        <div class="nav-item">
-            <a asp-controller="Home" asp-action="Index" class="nav-link text-white">Início <span class="sr-only">(current)</span></a>
-        </div>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="nav-item">
-                <a asp-controller="Catalogo" asp-action="Index" class="nav-link text-white">Veiculos</a>
-            </div>
-        }
-        @if (User.IsInRole("ADMINISTRADOR"))
-        {
-            <div class="nav-item">
-                <a asp-controller="Autenticador" asp-action="Usuarios" class="nav-link text-white">Usuarios</a>
-            </div>
-        }
-    </div>
-    <div class="d-inline-flex align-items-center">
+﻿<nav class="navbar navbar-expand-md navbar-light bg-dark my-1">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="ui-nav-item">
+                <a asp-controller="Home" asp-action="Index" class="nav-link text-white">Início <span class="sr-only">(current)</span></a>
+            </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="ui-nav-item ">
+                    <a asp-controller="Veiculos" asp-action="DetalhesVeiculos" class="nav-link text-white">Veiculos</a>
+                </li>
+            }
+            @if (User.IsInRole("ADMINISTRADOR"))
+            {
+                <li class="ui-nav-item ">
+                    <a asp-controller="Autenticador" asp-action="Usuarios" class="nav-link text-white">Usuarios</a>
+                </li>
+            }
+        </ul>
         @if (!User.Identity.IsAuthenticated)
         {
-            <div class="nav-item">
-                <a asp-controller="Autenticador" asp-action="Login" class="btn btn-sm btn-success font-weight-bold">
-                    ENTRAR
-                </a>
-            </div>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a asp-action="Login" asp-controller="Autenticador" class="btn ui-btn text-white">
+                        ENTRAR
+                        <i class="fa fa-sign-in fa-1x"></i>
+                    </a>
+                </li>
+            </ul>
         }
         else
         {
-            <div>
-                <p class="text-white m-0">Usuário: <strong> @(User.IsInRole("ADMINISTRADOR") ? "ADM" : "COTAÇÃO") </strong></p>
-            </div>
-            <form asp-controller="Autenticador" asp-action="Logout">
-                <button class="btn btn-sm btn-warning font-weight-bold mx-3">
-                    SAIR
-                </button>
-            </form>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <div class="mr-3 mt-2">
+                        <p class="text-white m-0">Usuário: <strong> @(User.IsInRole("ADMINISTRADOR") ? "ADMINISTRADOR" : "LokarMais") </strong></p>
+                    </div>
+                </li>
+                <li>
+                    <form asp-controller="Autenticador" asp-action="Logout">
+                        <button class="btn ui-btn btn-danger font-weight-bold">
+                            SAIR
+                            <i class="fa fa-power-off fa-1x"></i>
+                        </button>
+                    </form>
+                </li>
+            </ul>
         }
+
     </div>
 </nav>
+

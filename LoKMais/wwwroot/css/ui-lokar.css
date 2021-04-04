@@ -1,0 +1,64 @@
+﻿body {
+}
+
+/*header*/
+.ui-logo {
+    font-size: 2.5rem;
+    color: #ff6a00;
+}
+    .ui-logo:hover {
+        text-decoration: none;
+        color: #ff6a00;
+    }
+.ui-icon{
+    color: #000000;
+    font: italic;
+}
+/*FimHeader*/
+
+
+/*NavBar*/
+.ui-btn {
+    background: #ff6a00;
+    font-weight: bold;
+    transition: 1s ease;
+}
+ui-btn:hover{
+    background: #fa7c22;
+    transition: 1s ease;
+}
+
+@keyframes botao{
+    0%, 20%, 60%, 100%{
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40%{
+        -webkit-transform: translateY(-20px);
+        transform: translateY(-20px);
+    }
+    80% {
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+}
+.ui-btn:hover{
+    animation: botao 0.5s;
+}
+
+@keyframes item{
+    0%, 100% {
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px)
+    }
+}
+
+.ui-nav-item{
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-left: 10px;
+}
+.ui-nav-item:hover{
+    animation: item 0.5s;
+}
+

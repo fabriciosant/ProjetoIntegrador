@@ -2,9 +2,9 @@
 @{ 
     ViewData["Title"] = "Lista de Usuarios";
 }
-<div class="card">
-    <div class="card-header">
-        <h3 class="text-center font-weight-bold">Lista de usuários</h3>
+<div class="card my-3 box-shadow">
+    <div class="card-header bg-info">
+        <h3 class="text-center font-weight-bold font-italic text-white">Lista de usuários</h3>
     </div>
     <div class="card-body">
         <div class="row justify-content-around align-items-center">
@@ -16,7 +16,6 @@
                 <tr class="row m-0">
                     <th class="col-md-3">CPF</th>
                     <th class="col-md-3">E-mail</th>
-                    <th class="col-md-3">Bloqueador</th>
                     <th class="col-md-3">Ação</th>
                 </tr>
             </thead>
@@ -30,12 +29,11 @@
                         <td class="col-md-3">
                             @usuario.Email
                         </td>
+                        
                         <td class="col-md-3">
-                            @{bool validar = usuario.LockoutEnd != null;}
-                            @Html.DisplayFor(modelItem => validar)
-                        </td>
-                        <td class="col-md-3">
-                            <a asp-controller="Autenticador" asp-action="AlterarSenha" asp-route-cpf="@usuario.UserName" class="btn btn-info">Alterar Senha</a>
+                            <a asp-controller="Autenticador" asp-action="AlterarSenha" asp-route-cpf="@usuario.UserName" class="btn btn-danger"></a>                                                          
+                            <a asp-controller="Autenticador" asp-action="AlterarSenha" asp-route-cpf="@usuario.UserName" class="btn btn-info"></a>                                                          
+                            <a asp-controller="Autenticador" asp-action="AlterarSenha" asp-route-cpf="@usuario.UserName" class="btn btn-secondary"><i class="fa fa-accessible-icon fa-1x"></i></a>
                         </td>
                     </tr>
                 }

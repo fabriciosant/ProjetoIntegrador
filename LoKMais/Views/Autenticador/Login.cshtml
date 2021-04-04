@@ -3,17 +3,18 @@
     ViewData["Title"] = "Login";
     Layout = "_Layout";
 }
-<div class="container">
+<div class="container my-5">
     <div class="card card-light-inverse" style="max-width: 28rem; margin: 0 auto">
+        <div class="card-header bg-info">
+            <h3 class="card-title font-italic text-white text-center">Autenticador</h3>
+        </div>
         <div class="card-body">
-            <h1 class="text-center">
-                Autenticação
-            </h1>
             <form asp-controller="Autenticador" asp-action="Login">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Login" autocomplete="false" class="control-label">CPF:</label>
                     <input asp-for="Login" class="form-control" id="cpf" type="text" placeholder="Informe seu CPF">
+                    <span class="text-muted font-italic">Insira apenas números.</span>
                 </div>
                 <div class="form-group">
                     <label for="Senha" autocomplete="new-password" class="control-label">Senha:</label>
@@ -22,6 +23,14 @@
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-raised btn-success col mt-2">Acessar</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 text-center pr-0">
+                        <a href="#" class="nav-link">Esqueceu sua senha?</a>
+                    </div>
+                    <div class="col-md-6 text-center pr-0">
+                        <a href="#" class="nav-link">Cadastrar-se</a>
+                    </div>
                 </div>
             </form>
         </div>
@@ -41,8 +50,5 @@
             $('#cpf').setMask('cpf')
         }
     </script>
-
-
-
 }
 

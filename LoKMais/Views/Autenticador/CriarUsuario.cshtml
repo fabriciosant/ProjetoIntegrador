@@ -11,35 +11,35 @@
         <form asp-action="CriarUsuario">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
-                <div class="col-md-4 form-group">
-                    <label asp-for="Cpf" class="form-check-label">
-                        <p class="text-black-50 mb-0 font-weight-bold">CPF<span class="text-danger">*</span></p>
+                <div class="col-md-4 ui-form-group">
+                    <label asp-for="Cpf" class="ui-form-group-label">
+                        CPF<span class="text-danger">*</span>
                     </label>
-                    <input asp-for="Cpf" type="text" class="form-control cpf" required placeholder="Ex.: 000.000.000-00" />
+                    <input asp-for="Cpf" type="text" class="ui-form-group-input form-control cpf" required placeholder="Ex.: 000.000.000-00" />
                     <span class="font-italic text-black-50">
                         Digite apenas numeros, sem pontos ou hífen
                     </span>
                 </div>
-                <div class="col-md-5 form-group">
-                    <label asp-for="Email" class="form-check-label">
-                        <p class="text-black-50 mb-0 font-weight-bold">Email<span class="text-danger">*</span></p>
+                <div class="col-md-5 ui-form-group">
+                    <label asp-for="Email" class="ui-form-group-label">
+                        Email<span class="text-danger">*</span>
                     </label>
-                    <input asp-for="Email" type="email" class="form-control" required placeholder="Ex.: Example@gmail.com" />
+                    <input asp-for="Email" type="email" class="ui-form-group-input form-control" required placeholder="Ex.: Example@gmail.com" />
                 </div>
-                <div class="col-md-3 form-group">
-                    <label asp-for="Telefone" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Telefone<span class="text-danger">*</span></p></label>
-                    <input asp-for="Telefone" type="tel" class="form-control cel" required placeholder="Ex.: (00) 0 0000-0000" />
+                <div class="col-md-3 ui-form-group">
+                    <label asp-for="Telefone" class="ui-form-group-label">Telefone<span class="text-danger">*</span></label>
+                    <input asp-for="Telefone" type="tel" class="ui-form-group-input form-control cel" required placeholder="Ex.: (00) 0 0000-0000" />
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 form-group">
-                    <label asp-for="Senha" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Senha<span class="text-danger">*</span></p></label>
-                    <input asp-for="Senha" type="password" class="form-control" required placeholder="********" />
+                <div class="col-md-6 ui-form-group">
+                    <label asp-for="Senha" class="ui-form-group-label">Senha<span class="text-danger">*</span></label>
+                    <input asp-for="Senha" type="password" class="ui-form-group-input form-control" required placeholder="********" />
                     <span class="text-black-50 font-italic">Sua senha de conter letras maiúsculas, minúsculas e números. Ex.: Senha123</span>
                 </div>
-                <div class="col-md-6 form-group">
-                    <label asp-for="ConfirmarSenha" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Confirmar Senha<span class="text-danger">*</span></p></label>
-                    <input asp-for="ConfirmarSenha" type="password" class="form-control" required placeholder="********" />
+                <div class="col-md-6 ui-form-group">
+                    <label asp-for="ConfirmarSenha" class="ui-form-group-label">Confirmar Senha<span class="text-danger">*</span></label>
+                    <input asp-for="ConfirmarSenha" type="password" class="ui-form-group-input form-control" required placeholder="********" />
                 </div>
             </div>
             <div class="row m-0 form-group">

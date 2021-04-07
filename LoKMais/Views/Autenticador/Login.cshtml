@@ -11,14 +11,14 @@
         <div class="card-body">
             <form asp-controller="Autenticador" asp-action="Login">
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Login" autocomplete="false" class="control-label">CPF:</label>
-                    <input asp-for="Login" class="form-control" id="cpf" type="text" placeholder="Informe seu CPF">
+                <div class="ui-form-group my-4">
+                    <label asp-for="Login" autocomplete="false" class="ui-form-group-label">CPF</label>
+                    <input asp-for="Login" class="ui-form-control-input form-control" id="cpf" type="text" placeholder="Informe seu CPF">
                     <span class="text-muted font-italic">Insira apenas números.</span>
                 </div>
-                <div class="form-group">
-                    <label for="Senha" autocomplete="new-password" class="control-label">Senha:</label>
-                    <input asp-for="Senha" class="form-control" placeholder="Informe sua senha">
+                <div class="ui-form-group my-4">
+                    <label for="Senha" autocomplete="new-password" class="ui-form-group-label">Senha</label>
+                    <input asp-for="Senha" class="ui-form-control-input form-control" placeholder="Informe sua senha">
                     <span class="font-italic text-black-50 ml-1">Sua senha deve conter letras maiúsculas e minúsculas</span>
                 </div>
                 <div class="form-group">
@@ -29,7 +29,7 @@
                         <a href="#" class="nav-link">Esqueceu sua senha?</a>
                     </div>
                     <div class="col-md-6 text-center pr-0">
-                        <a href="#" class="nav-link">Cadastrar-se</a>
+                        <a asp-action="CriarUsuario" asp-controller="Autenticador" class="ui-nav-link">Criar uma conta</a>
                     </div>
                 </div>
             </form>

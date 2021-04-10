@@ -151,8 +151,46 @@ namespace LoKMais.Controllers
         public async Task<IActionResult> Usuarios()
         {
             var listaUsuario = await _userManager.Users.ToListAsync();
-            //listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
             return View(listaUsuario);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> AlterarSenha(string cpf)
+        {
+            var usuario = await _userManager.FindByNameAsync(cpf);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(usuario);
+            var alterarSenha = new AlteracaoSenhaViewModel
+            {
+                Cpf = usuario.UserName,
+                Token = token
+            };
+            return View(alterarSenha);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AlterarSenha(AlteracaoSenhaViewModel model)
+        {
+            var usuario = await _userManager.FindByNameAsync(model.Cpf);
+
+            if (usuario == null)
+            {
+                _toastNotification.AddErrorToastMessage("CPF invalido, verifique se o CPF informado está correto");
+                return RedirectToAction("AlterarSenha");
+            }
+
+            var resultadoAlteracao =
+                await _userManager.ResetPasswordAsync(usuario, model.Token, model.NovaSenha);
+
+            if (resultadoAlteracao.Succeeded)
+            {
+                _toastNotification.AddSuccessToastMessage("Senha alterada com sucesso!");
+                _logger.LogWarning($"Senha alterada com sucesso: Usuario {usuario.UserName}, E-mail {usuario.Email}.");
+                return RedirectToAction("Usuarios");
+            }
+
+            _toastNotification.AddErrorToastMessage("Erro na alteração da senha!");
+            AddErrors(resultadoAlteracao);
+            return View(model);
         }
 
         protected void AddErrors(IdentityResult result)

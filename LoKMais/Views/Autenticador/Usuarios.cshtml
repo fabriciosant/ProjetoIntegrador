@@ -16,7 +16,6 @@
                 <tr class="row m-0">
                     <th class="col-md-3">CPF</th>
                     <th class="col-md-3">E-mail</th>
-                    <th class="col-md-3">Bloqueador</th>
                     <th class="col-md-3">Ação</th>
                 </tr>
             </thead>
@@ -31,11 +30,8 @@
                             @usuario.Email
                         </td>
                         <td class="col-md-3">
-                            @{bool validar = usuario.LockoutEnd != null;}
-                            @Html.DisplayFor(modelItem => validar)
-                        </td>
-                        <td class="col-md-3">
-                            <a asp-controller="Autenticador" asp-action="AlterarSenha" asp-route-cpf="@usuario.UserName" class="btn btn-info">Alterar Senha</a>
+                            <a asp-controller="Autenticador" asp-action="AlterarSenha" asp-route-cpf="@usuario.UserName" class="btn btn-info">Editar</a>
+                            <a asp-controller="Autenticador" asp-action="AlterarSenha" asp-route-cpf="@usuario.UserName" class="btn btn-danger">Deletar</a>
                         </td>
                     </tr>
                 }

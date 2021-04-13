@@ -1,12 +1,9 @@
 ﻿using LoKMais.Models;
-using LoKMais.Models.ViewModels;
+using LoKMais.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LoKMais.Data
 {
@@ -17,6 +14,8 @@ namespace LoKMais.Data
         public DbSet<Cliente> Usuarios { get; set; }
 
         public DbSet<Endereco> Enderecos { get; set; }
+
+        public DbSet<Veiculo> Veiculos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

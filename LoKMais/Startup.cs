@@ -128,7 +128,7 @@ namespace LoKMais
                     Email = "Fabriciosan47@gmail.com"
                 };
 
-                var resultRegisterAccount = await userManager.CreateAsync(usuario, "F@bricio20");
+                var resultRegisterAccount = await userManager.CreateAsync(usuario, "Senh@0102");
                 if (resultRegisterAccount.Succeeded)
                 {
                     await userManager.AddToRoleAsync(usuario, "ADMINISTRADOR");

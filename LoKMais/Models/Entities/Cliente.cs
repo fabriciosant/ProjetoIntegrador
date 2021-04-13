@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using LoKMais.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LoKMais.Models
 {
     public class Cliente : IdentityUser<Guid>
     {
+        public string NomeCompleto { get; set; }
         public virtual Endereco Endereco { get; set; }
+        public IList<Veiculo> Veiculo { get; set; }
     }
 }

@@ -39,7 +39,8 @@ namespace LoKMais.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    NomeCompleto = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -177,6 +178,29 @@ namespace LoKMais.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Veiculos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Modelo = table.Column<string>(nullable: false),
+                    Marca = table.Column<string>(nullable: false),
+                    Ano = table.Column<string>(nullable: false),
+                    Cor = table.Column<string>(nullable: true),
+                    Foto = table.Column<byte[]>(nullable: true),
+                    ClienteId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Veiculos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Veiculos_AspNetUsers_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -215,6 +239,11 @@ namespace LoKMais.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Veiculos_ClienteId",
+                table: "Veiculos",
+                column: "ClienteId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -236,6 +265,9 @@ namespace LoKMais.Migrations
 
             migrationBuilder.DropTable(
                 name: "Enderecos");
+
+            migrationBuilder.DropTable(
+                name: "Veiculos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

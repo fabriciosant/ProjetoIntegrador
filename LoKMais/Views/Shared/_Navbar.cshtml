@@ -6,7 +6,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="nav-item">
-                <a asp-controller="Catalogo" asp-action="Index" class="nav-link text-white">Veiculos</a>
+                <a asp-controller="Veiculo" asp-action="AdicionarVeiculo" class="nav-link text-white">Veiculos</a>
             </div>
         }
         @if (User.IsInRole("ADMINISTRADOR"))

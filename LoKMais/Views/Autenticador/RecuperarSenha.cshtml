@@ -4,21 +4,41 @@
     ViewData["Title"] = "RecuperarSenha";
 }
 
-<h1>RecuperarSenha</h1>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="RecuperarSenha">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Cpf" class="control-label"></label>
-                <input asp-for="Cpf" class="form-control" />
-                <span asp-validation-for="Cpf" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Continuar" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container my-4">
+    <div class="card card-light-inverse" style="max-width: 28rem; margin: 0 auto">
+        <div class="card-header text-center bg-info">
+            <h3 class="text-white">Recuperar senha</h3>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Autenticador" asp-action="RecuperarSenha">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="ui-form-group">
+                    <label asp-for="Cpf" autocomplete="false" class="ui-form-group-label">CPF</label>
+                    <input asp-for="Cpf" class="ui-form-group-input form-control" id="cpf" type="text" placeholder="Informe seu CPF">
+                    <span class="text-black-50 font-italic">Digite apenas números, sem pontos ou hífen.</span>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-raised btn-success">Continuar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/js/meiomask.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            adicionarMascaras()
+        })
+
+        function adicionarMascaras() {
+            $('#cpf').setMask('cpf')
+    }
+    </script>
+}
 
 

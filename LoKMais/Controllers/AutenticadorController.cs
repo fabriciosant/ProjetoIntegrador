@@ -171,6 +171,10 @@ namespace LoKMais.Controllers
         [HttpGet]
         public async Task<IActionResult> AlterarSenha(string cpf)
         {
+            var formatoCpf = new CPF(cpf);
+            cpf = formatoCpf.Codigo;
+            formatoCpf.SemFormatacao();
+
             var usuario = await _userManager.FindByNameAsync(cpf);
             var token = await _userManager.GeneratePasswordResetTokenAsync(usuario);
             var alterarSenha = new AlteracaoSenhaViewModel
@@ -182,14 +186,22 @@ namespace LoKMais.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AlterarSenha(AlteracaoSenhaViewModel model)
+        public async Task<IActionResult> AlterarSenha(AlteracaoSenhaViewModel model, string cpf)
         {
-            var usuario = await _userManager.FindByNameAsync(model.Cpf);
+            var formatoCpf = new CPF(cpf);
+            cpf = formatoCpf.Codigo;
+            var usuario = await _userManager.FindByNameAsync(cpf);
 
             if (usuario == null)
             {
                 _toastNotification.AddErrorToastMessage("CPF invalido, verifique se o CPF informado está correto");
                 return RedirectToAction("AlterarSenha");
+            }
+
+            if (model.NovaSenha != model.ConfirmarNovaSenha)
+            {
+                _toastNotification.AddErrorToastMessage("Senhas não conferem");
+                return View();
             }
 
             var resultadoAlteracao =

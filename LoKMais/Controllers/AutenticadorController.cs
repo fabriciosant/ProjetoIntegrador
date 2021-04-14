@@ -215,6 +215,7 @@ namespace LoKMais.Controllers
         }
         #endregion
 
+        #region RecuperarSenha
         [HttpGet]
         public IActionResult RecuperarSenha() => View();
 
@@ -227,6 +228,7 @@ namespace LoKMais.Controllers
             }
             return RedirectToAction("AlterarSenha", new { cpf = model.Cpf });
         }
+        #endregion
 
         #region  AddErros
         protected void AddErrors(IdentityResult result)

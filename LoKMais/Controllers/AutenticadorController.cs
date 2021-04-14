@@ -145,6 +145,7 @@ namespace LoKMais.Controllers
                 var usuario = new Cliente()
                 {
                     UserName = cpf.Codigo,
+                    NomeCompleto = model.NomeCompleto,
                     Email = model.Email,
                     PhoneNumber = model.Telefone
                 };

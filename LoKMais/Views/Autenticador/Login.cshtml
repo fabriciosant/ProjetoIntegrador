@@ -46,7 +46,7 @@
 @section Scripts{
     @await Html.PartialAsync("_ValidationScriptsPartial")
     <script src="~/js/meiomask.js"></script>
-
+    <script src="~/js/MostrarSenha.js"></script>
     <script>
         $(document).ready(function () {
             adicionarMascaras()
@@ -55,18 +55,6 @@
         function adicionarMascaras() {
             $('#cpf').setMask('cpf')
         }
-
-        function mostrarOcutarSenha() {
-            var senha = document.getElementById("senha")
-            if (senha.type == "password") {
-                senha.type = "text"
-            } else {
-                senha.type = "password"
-            }
-        }
     </script>
-
-
-
 }
 

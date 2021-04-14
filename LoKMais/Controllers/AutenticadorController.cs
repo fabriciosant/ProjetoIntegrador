@@ -13,9 +13,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace LoKMais.Controllers
-{   
+{
     public class AutenticadorController : Controller
     {
+        #region Injeções de Dependecias
         private readonly IToastNotification _toastNotification;
         private readonly UserManager<Cliente> _userManager;
         private readonly SignInManager<Cliente> _signInManager;
@@ -31,10 +32,14 @@ namespace LoKMais.Controllers
             _toastNotification = toastNotification;
             _userManager = userManager;
         }
+        #endregion
 
+        #region AcessoNegado
         [HttpGet]
         public IActionResult AcessoNegado() => View();
+        #endregion
 
+        #region Login
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
@@ -97,7 +102,9 @@ namespace LoKMais.Controllers
             }
             return View(model);
         }
+        #endregion
 
+        #region Logout
         [HttpPost]
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
@@ -109,7 +116,9 @@ namespace LoKMais.Controllers
             ViewData["ReturnUrel"] = returnUrl;
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region CriarUsuario
         [HttpGet]
         public IActionResult CriarUsuario() => View();
 
@@ -147,13 +156,18 @@ namespace LoKMais.Controllers
             }
             return View();
         }
+        #endregion
+
+        #region Usuarios
         [HttpGet]
         public async Task<IActionResult> Usuarios()
         {
             var listaUsuario = await _userManager.Users.ToListAsync();
             return View(listaUsuario);
         }
-        
+        #endregion
+
+        #region AlterarSenha
         [HttpGet]
         public async Task<IActionResult> AlterarSenha(string cpf)
         {
@@ -185,14 +199,36 @@ namespace LoKMais.Controllers
             {
                 _toastNotification.AddSuccessToastMessage("Senha alterada com sucesso!");
                 _logger.LogWarning($"Senha alterada com sucesso: Usuario {usuario.UserName}, E-mail {usuario.Email}.");
-                return RedirectToAction("Usuarios");
+                if (User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("Usuarios");
+                }
+                else
+                {
+                    return RedirectToAction("Login");
+                }
             }
 
             _toastNotification.AddErrorToastMessage("Erro na alteração da senha!");
             AddErrors(resultadoAlteracao);
             return View(model);
         }
+        #endregion
 
+        [HttpGet]
+        public IActionResult RecuperarSenha() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> RecuperarSenha(RecuperarSenhaViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _userManager.FindByNameAsync(model.Cpf);
+            }
+            return RedirectToAction("AlterarSenha", new { cpf = model.Cpf });
+        }
+
+        #region  AddErros
         protected void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -200,5 +236,6 @@ namespace LoKMais.Controllers
                 ModelState.AddModelError(string.Empty, error.Description);
             }
         }
+        #endregion
     }
 }

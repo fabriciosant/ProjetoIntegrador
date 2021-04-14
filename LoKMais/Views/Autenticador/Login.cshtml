@@ -9,17 +9,19 @@
             <h3 class="text-white">Autenticador</h3>
         </div>
         <div class="card-body">
+            
             <form asp-controller="Autenticador" asp-action="Login">
-                <div asp-validation-summary="All" class="text-danger"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <span class="text-black-50 font-italic">Digite apenas números, sem pontos ou hífen.</span>
                 <div class="ui-form-group">
                     <label asp-for="Login" autocomplete="false" class="ui-form-group-label">CPF</label>
                     <input asp-for="Login" class="ui-form-group-input form-control" id="cpf" type="text" placeholder="Informe seu CPF">
-                    <span class="text-black-50 font-italic">Digite apenas números, sem pontos ou hífen.</span>
+                    <span asp-validation-for="Login" class="text-danger"></span>
                 </div>
                 <div class="ui-form-group mt-5">
                     <label for="Senha" autocomplete="new-password" class="ui-form-group-label">Senha</label>
                     <input asp-for="Senha" id="senha" class="ui-form-group-input form-control" placeholder="Informe sua senha">
-                    <span class="font-italic text-black-50 ml-1">Sua senha deve conter letras maiúsculas e minúsculas</span>
+                    <span asp-validation-for="Senha" class="text-danger"></span>
                     <p class="text-black-50 mt-2">
                         <input type="checkbox" id="mostrarsenha" onclick="mostrarOcutarSenha()" />
                         <label for="mostrarsenha">Mostar senha</label>

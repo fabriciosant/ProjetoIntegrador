@@ -8,9 +8,6 @@ namespace LoKMais.Models.ViewModels
 {
     public class AlteracaoSenhaViewModel
     {
-        [Required(ErrorMessage = "Número de CPF Inválido")]
-        [RegularExpression(@"[0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[-][0-9]{2}", ErrorMessage = "Número de CPF Inválido")]
-        [Display(Name = "CPF")]
         public string Cpf { get; set; }
 
         public string Token { get; set; }
@@ -22,8 +19,8 @@ namespace LoKMais.Models.ViewModels
 
         [Required(ErrorMessage = "Confirmar nova senha inválido")]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirmar Senha", Prompt = "*******")]
-        [Compare("NovaSenha", ErrorMessage = "Senha não está igual")]
+        [Display(Name = "Confirmar Senha")]
+        [Compare("NovaSenha", ErrorMessage = "Senhas não conferem")]
         public string ConfirmarNovaSenha { get; set; }
     }
 }

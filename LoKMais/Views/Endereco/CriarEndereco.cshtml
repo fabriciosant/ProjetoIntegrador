@@ -3,60 +3,66 @@
     ViewData["Title"] = "Endereço";
     Layout = "_Layout";
 }
-<div class="card mt-4">
-    <div class="card-header box-shadow bg-info">
-        <h2 class="text-white font-italic text-center">Área de Endereço</h2>
-    </div>
-    <div class="card-body box-shadow border-bottom">
-        <p class="text-black-50">Os campos com "<span class="text-danger">*</span>" são obrigatórios!</p>
-        <form asp-action="CriarEndereco" asp-controller="Endereco" method="post" autocomplete="off">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row">
-                <input name="Cpf" type="hidden" value="@ViewBag.cpf" />
-                <div class="col-md-3 form-group">
-                    <label asp-for="Cep" class="form-check-label">
-                        <p class="text-black-50 mb-0 font-weight-bold">
-                            CEP<span class="text-danger">*</span>
-                        </p>
-                    </label>
-                    <input asp-for="Cep" type="text" class="form-control" id="cep" required placeholder="Ex.: 12345-678" />
-                    <span class="text-black-50 font-italic">Digite apenas números, sem pontos ou hífen</span>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label asp-for="Logradouro" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Logradouro</p></label>
-                    <input asp-for="Logradouro" type="text" class="form-control" id="logradouro" placeholder="Ex.: Avenida Carlos Gomes" />
-                </div>
-                <div class="col-md-3 form-group">
-                    <label asp-for="Numero" class="form-check-label">
-                        <p class="text-black-50 mb-0 font-weight-bold">Número</p>
-                    </label>
-                    <input asp-for="Numero" type="text" class="form-control" required placeholder="Ex.: 1020" />
-                </div>
+<div class="container my-4">
+    <div class="card">
+        <div class="card-header text-center bg-info">
+            <h2 class="text-white font-italic">Cadastro de Endereço</h2>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-secondary alert-dismissible" role="alert">
+                <i class="fa fa-info-circle fa-1x"></i>
+                <strong>Dica: </strong>Preencha os campos obrigatórios <i class="fa fa-asterisk fa-1x text-danger"></i>.
             </div>
-            <div class="row">
-                <div class="col-md-5">
-                    <label asp-for="Bairro" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Bairro</p></label>
-                    <input asp-for="Bairro" type="text" class="form-control" id="bairro" placeholder="Ex.: Jardim Primavera" />
+            <form asp-action="CriarEndereco" asp-controller="Endereco" method="post" autocomplete="off">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <span class="text-black-50 font-italic">Digite apenas números, sem pontos ou hífen</span>
+                <div class="row">
+                    <input name="Cpf" type="hidden" value="@ViewBag.cpf" />
+                    <div class="col-md-3 ui-form-group">
+                        <label asp-for="Cep" class="ui-form-group-label">CPF<span class="text-danger font-weight-bold">*</span></label>
+                        <input asp-for="Cep" type="text" class="ui-form-group-input form-control" id="cep" required placeholder="Ex.: 12345-678" />
+                        <span asp-validation-for="Cep" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 ui-form-group">
+                        <label asp-for="Logradouro" class="ui-form-group-label">Logradouro</label>
+                        <input asp-for="Logradouro" type="text" class="ui-form-group-input form-control" id="logradouro" placeholder="Ex.: Avenida Carlos Gomes" />
+                        <span asp-validation-for="Logradouro" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3 ui-form-group">
+                        <label asp-for="Numero" class="ui-form-group-label">Número</label>
+                        <input asp-for="Numero" type="text" class="ui-form-group-input form-control" required placeholder="Ex.: 1020" />
+                        <span asp-validation-for="Numero" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="col-md-5">
-                    <label asp-for="Cidade" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Cidade</p></label>
-                    <input asp-for="Cidade" type="text" class="form-control" id="cidade" placeholder="Ex.: Juiz de Fora" />
+                <div class="row">
+                    <div class="col-md-5 ui-form-group">
+                        <label asp-for="Bairro" class="ui-form-group-label">Bairro</label>
+                        <input asp-for="Bairro" type="text" class="ui-form-group-input form-control" id="bairro" placeholder="Ex.: Jardim Primavera" />
+                        <span asp-validation-for="Bairro" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-5 ui-form-group">
+                        <label asp-for="Cidade" class="ui-form-group-label">Cidade</label>
+                        <input asp-for="Cidade" type="text" class="ui-form-group-input form-control" id="cidade" placeholder="Ex.: Juiz de Fora" />
+                        <span asp-validation-for="Cidade" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-2 ui-form-group">
+                        <label asp-for="Uf" class="ui-form-group-label">UF</label>
+                        <input asp-for="Uf" type="text" class="ui-form-group-input form-control" id="uf" placeholder="Ex.: RO" />
+                        <span asp-validation-for="Uf" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="col-md-2 form-group">
-                    <label asp-for="Uf" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">UF</p></label>
-                    <input asp-for="Uf" type="text" class="form-control" id="uf" placeholder="Ex.: RO" />
+                <div class="row">
+                    <div class="col-md ui-form-group">
+                        <label asp-for="Complemento" class="ui-form-group-label">Complemento</label>
+                        <input asp-for="Complemento" type="text" class="ui-form-group-input form-control" placeholder="Ex.:Condomínio esquina com mercado" />
+                        <span asp-validation-for="Uf" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md form-group">
-                    <label asp-for="Complemento" class="form-check-label"><p class="text-black-50 mb-0 font-weight-bold">Complemento</p></label>
-                    <input asp-for="Complemento" type="text" class="form-control" placeholder="Ex.:Condomínio esquina com mercado" />
+                <div class="row m-0 form-group">
+                    <input type="submit" class="btn btn-success font-weight-bold col" value="Finalizar cadastro" />
                 </div>
-            </div>
-            <div class="row m-0 form-group">
-                <input type="submit" class="btn btn-success font-weight-bold col" value="Finalizar cadastro" />
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 @section Scripts{

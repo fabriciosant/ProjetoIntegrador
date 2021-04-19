@@ -159,15 +159,6 @@ namespace LoKMais.Controllers
         }
         #endregion
 
-        #region Usuarios
-        [HttpGet]
-        public async Task<IActionResult> Usuarios()
-        {
-            var listaUsuario = await _userManager.Users.ToListAsync();
-            return View(listaUsuario);
-        }
-        #endregion
-
         #region AlterarSenha
         [HttpGet]
         public async Task<IActionResult> AlterarSenha(string cpf)

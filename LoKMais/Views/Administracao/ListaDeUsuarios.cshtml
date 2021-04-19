@@ -1,0 +1,86 @@
+﻿@model IEnumerable<LoKMais.Models.Cliente>
+@{
+    ViewData["Title"] = "Lista de Usuarios";
+}
+<div class="container my-4">
+    <div class="card">
+        <div class="card-header text-center bg-info">
+            <h2 class="text-white font-italic">Lista de usuários</h2>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-around align-items-center">
+                <span class="font-italic">Clique em "Novo usuário" para inserir um novo usuário a lista</span>
+                <a asp-controller="Autenticador" asp-action="CriarUsuario" class="btn btn-primary m-3">Novo usuário <i class="fa fa-user-plus fa-1x"></i></a>
+            </div>
+            <table class="table table-borderless border table-striped text-center">
+                <thead>
+                    <tr class="row m-0 text-black-50">
+                        <th class="col-md-3">Nome Completo</th>
+                        <th class="col-md-3">CPF</th>
+                        <th class="col-md-3">E-mail</th>
+                        <th class="col-md-3">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count() == 0)
+                    {}
+                    else
+                    {
+                        @foreach (var usuario in Model)
+                        {
+                            <tr class="row m-0 align-items-center">
+                                <td class="col-md-3">
+                                    @usuario.NomeCompleto
+                                </td>
+                                <td class="col-md-3">
+                                    @(new CPF(usuario.UserName).ComFormatacao())
+                                </td>
+                                <td class="col-md-3">
+                                    @usuario.Email
+                                </td>
+                                <td class="col-md-3">
+                                    <a asp-controller="Autenticador" asp-action="AlterarSenha" asp-route-cpf="@usuario.UserName" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>
+                                    <a class="btn btn-danger text-white" data-toggle="modal" data-target="#confirmarDelete">Deletar <i class="fa fa-trash fa-1"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@if (Model.Count() == 0)
+{
+    
+}
+else
+{
+    @foreach (var usuario in Model)
+    {
+        <!-- Modal -->
+        <div class="modal fade" id="confirmarDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-info">
+                        <h5 class="modal-title text-center text-white" id="exampleModalLabel">Confirmar Exclusão</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        Deseja realmente deletar esse usuário?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <form method="post" asp-controller="Administracao" asp-action="DeletarUsuario" asp-route-id="@usuario.Id">
+                            <button type="submit" class="btn btn-success">Confirmar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+

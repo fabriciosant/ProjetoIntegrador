@@ -69,3 +69,35 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.font-logo {
+    font-family: 'Caveat', cursive;
+    font-size: 4rem;
+    color: #9cfb00;
+}
+
+.font-sub-logo {
+    font-family: 'Caveat', cursive;
+    font-size: 2rem ;
+}
+.zoom-img {
+    overflow: hidden;
+    
+
+}
+
+    .zoom-img img {
+        max-width: 100%;
+        -moz-transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        margin: -20px 0 0 70px;
+    }
+
+    .zoom-img:hover img {
+        -moz-transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+
+

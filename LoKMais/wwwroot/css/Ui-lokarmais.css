@@ -28,3 +28,22 @@
 }
 /*******************************************/
 
+.btn-up{
+    color: #60ff00;
+}
+    .btn-up:hover {
+        color: #358b01;
+    }
+
+.contatos h5, .endereco h5, .rede-social h5 {
+    color: #9cfb00;
+}
+.contatos h5:before, .endereco h5:before, .rede-social h5:before {
+    content: '|';
+    color: #fe5555
+}
+
+.card-footer{
+    position: absolute;
+    width: 100%;
+}

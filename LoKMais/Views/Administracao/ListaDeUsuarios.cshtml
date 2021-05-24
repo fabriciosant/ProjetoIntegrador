@@ -39,7 +39,7 @@
                                     @usuario.Email
                                 </td>
                                 <td class="col-md-3">
-                                    <a asp-controller="Autenticador" asp-action="AlterarSenha" asp-route-cpf="@usuario.UserName" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>
+                                    <a asp-controller="Usuario" asp-action="Editar" asp-route-email="@usuario.Email" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>
                                     <a class="btn btn-danger text-white" data-toggle="modal" data-target="#confirmarDelete">Deletar <i class="fa fa-trash fa-1"></i></a>
                                 </td>
                             </tr>

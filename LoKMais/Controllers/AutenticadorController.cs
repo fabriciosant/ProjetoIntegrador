@@ -1,15 +1,10 @@
 ﻿using LoKMais.Models;
 using LoKMais.Models.ViewModels;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NToastNotify;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LoKMais.Controllers
@@ -115,47 +110,6 @@ namespace LoKMais.Controllers
             }
             ViewData["ReturnUrel"] = returnUrl;
             return RedirectToAction("Index", "Home");
-        }
-        #endregion
-
-        #region CriarUsuario
-        [HttpGet]
-        public IActionResult CriarUsuario() => View();
-
-        [HttpPost]
-        public async Task<IActionResult> CriarUsuario(UsuarioViewModel model)
-        {
-            var cpf = new CPF(model.Cpf);
-            cpf.SemFormatacao();
-
-            var userExist = await _userManager.FindByNameAsync(model.Cpf);
-            if (userExist != null)
-            {
-                _toastNotification.AddErrorToastMessage("Usuário já cadastrado!");
-                return View(model);
-            }
-
-            var Senha = model.Senha;
-            if (Senha != model.ConfirmarSenha)
-            {
-                _toastNotification.AddErrorToastMessage("Senhas não conferem!");
-            }
-            else
-            {
-                var usuario = new Cliente()
-                {
-                    UserName = cpf.Codigo,
-                    NomeCompleto = model.NomeCompleto,
-                    Email = model.Email,
-                    PhoneNumber = model.Telefone
-                };
-                await _userManager.CreateAsync(usuario, model.Senha);
-
-                _logger.LogWarning($"Usuatrio criado com sucesso: Usuario{usuario.UserName}, E-mail {usuario.Email}.");
-                _toastNotification.AddSuccessToastMessage("Usuário Criado");
-                return RedirectToAction("CriarEndereco", "Endereco", new { cpf = model.Cpf });
-            }
-            return View();
         }
         #endregion
 

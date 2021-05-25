@@ -10,7 +10,7 @@
         <div class="card-body">
             <div class="row justify-content-around align-items-center">
                 <span class="font-italic">Clique em "Novo usuário" para inserir um novo usuário a lista</span>
-                <a asp-controller="Autenticador" asp-action="CriarUsuario" class="btn btn-primary m-3">Novo usuário <i class="fa fa-user-plus fa-1x"></i></a>
+                <a asp-controller="Usuario" asp-action="CriarUsuario" class="btn btn-primary m-3">Novo usuário <i class="fa fa-user-plus fa-1x"></i></a>
             </div>
             <table class="table table-borderless border table-striped text-center">
                 <thead>
@@ -23,7 +23,13 @@
                 </thead>
                 <tbody>
                     @if (Model.Count() == 0)
-                    {}
+                    {
+                        <tr class="row m-0 align-items-center">
+                            <td class="col-md">
+                                <h5 class="text-black-50 font-italic">Não há usuarios cadastrados</h5>
+                            </td>
+                        </tr>
+                    }
                     else
                     {
                         @foreach (var usuario in Model)
@@ -53,7 +59,7 @@
 </div>
 @if (Model.Count() == 0)
 {
-    
+
 }
 else
 {
@@ -70,12 +76,12 @@ else
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                        Deseja realmente deletar esse usuário?
+                        Deseja realmente Excluir esse usuário?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <form method="post" asp-controller="Administracao" asp-action="DeletarUsuario" asp-route-id="@usuario.Id">
-                            <button type="submit" class="btn btn-success">Confirmar</button>
+                        <form method="post" asp-controller="Usuario" asp-action="DeletarUsuario" asp-route-id="@usuario.Id">
+                            <button type="submit" class="btn btn-danger">Excluir</button>
                         </form>
                     </div>
                 </div>

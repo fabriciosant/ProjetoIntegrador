@@ -63,7 +63,7 @@ namespace LoKMais.Controllers
             }
 
             _toastNotification.AddSuccessToastMessage("Endereco Cadastrado!");
-            return RedirectToAction("PaginaInicial", "Home");
+            return RedirectToAction("ListaDeUsuario", "Usuario");
         }
 
     }

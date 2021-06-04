@@ -134,17 +134,21 @@ namespace LoKMais.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Ano")
+                    b.Property<int>("Ano")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Categoria")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cor")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ClienteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Cor")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<byte[]>("Foto")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Marca")
@@ -155,9 +159,14 @@ namespace LoKMais.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Placa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("ClienteId");
+                    b.Property<int>("TipoCombustivel")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Veiculos");
                 });
@@ -298,13 +307,6 @@ namespace LoKMais.Migrations
                         .HasForeignKey("LoKMais.Models.Endereco", "EnderecoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("LoKMais.Models.Entities.Veiculo", b =>
-                {
-                    b.HasOne("LoKMais.Models.Cliente", "Cliente")
-                        .WithMany("Veiculo")
-                        .HasForeignKey("ClienteId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

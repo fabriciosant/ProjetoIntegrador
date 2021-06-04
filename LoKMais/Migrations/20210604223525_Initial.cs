@@ -48,6 +48,26 @@ namespace LoKMais.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Veiculos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Modelo = table.Column<string>(nullable: false),
+                    Marca = table.Column<string>(nullable: false),
+                    Categoria = table.Column<int>(nullable: false),
+                    Placa = table.Column<string>(nullable: false),
+                    Ano = table.Column<int>(nullable: false),
+                    TipoCombustivel = table.Column<int>(nullable: false),
+                    Cor = table.Column<int>(nullable: false),
+                    Foto = table.Column<byte[]>(nullable: false),
+                    Descricao = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Veiculos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -178,29 +198,6 @@ namespace LoKMais.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Veiculos",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Modelo = table.Column<string>(nullable: false),
-                    Marca = table.Column<string>(nullable: false),
-                    Ano = table.Column<string>(nullable: false),
-                    Cor = table.Column<string>(nullable: true),
-                    Foto = table.Column<byte[]>(nullable: true),
-                    ClienteId = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Veiculos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Veiculos_AspNetUsers_ClienteId",
-                        column: x => x.ClienteId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -239,11 +236,6 @@ namespace LoKMais.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Veiculos_ClienteId",
-                table: "Veiculos",
-                column: "ClienteId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

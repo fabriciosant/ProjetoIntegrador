@@ -1,7 +1,5 @@
-﻿using LoKMais.Models.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 
 namespace LoKMais.Models
 {
@@ -9,6 +7,5 @@ namespace LoKMais.Models
     {
         public string NomeCompleto { get; set; }
         public virtual Endereco Endereco { get; set; }
-        public IList<Veiculo> Veiculo { get; set; }
     }
 }

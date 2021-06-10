@@ -29,7 +29,7 @@ namespace LoKMais
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Contexto>(options => options.UseSqlServer(Configuration.GetConnectionString("DBLokMais"), p => p.MigrationsHistoryTable("HistoricoDasMigrastions", "LokMais"))).AddIdentity<Cliente, IdentityRole<Guid>>(options =>
+            services.AddDbContext<LkContextDB>(options => options.UseSqlServer(Configuration.GetConnectionString("DBLokMais"), p => p.MigrationsHistoryTable("HistoricoDasMigrastions", "LokMais"))).AddIdentity<Cliente, IdentityRole<Guid>>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -37,7 +37,7 @@ namespace LoKMais
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(5);
             })
-                .AddEntityFrameworkStores<Contexto>()
+                .AddEntityFrameworkStores<LkContextDB>()
                 .AddDefaultTokenProviders()
                 .AddErrorDescriber<PortugueseIdentityErrorDescriber>();
             services.ConfigureApplicationCookie(options =>
@@ -113,7 +113,7 @@ namespace LoKMais
 
         public async Task CreateAdministradorAsync(IServiceProvider serviceProvider)
         {
-            using var contexto = serviceProvider.GetRequiredService<Contexto>();
+            using var contexto = serviceProvider.GetRequiredService<LkContextDB>();
             using var userManager = serviceProvider.GetRequiredService<UserManager<Cliente>>();
             var userexists = await userManager.FindByNameAsync("fabriciosa47@gmail.com");
 

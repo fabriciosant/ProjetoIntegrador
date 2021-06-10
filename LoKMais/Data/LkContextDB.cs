@@ -7,9 +7,9 @@ using System;
 
 namespace LoKMais.Data
 {
-    public class Contexto : IdentityDbContext<Cliente, IdentityRole<Guid>, Guid>
+    public class LkContextDB : IdentityDbContext<Cliente, IdentityRole<Guid>, Guid>
     {
-        public Contexto(DbContextOptions<Contexto> options): base(options) { }
+        public LkContextDB(DbContextOptions<LkContextDB> options): base(options) { }
 
         public DbSet<Cliente> Usuarios { get; set; }
 

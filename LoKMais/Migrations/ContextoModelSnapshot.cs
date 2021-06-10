@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LoKMais.Migrations
 {
-    [DbContext(typeof(Contexto))]
+    [DbContext(typeof(LkContextDB))]
     partial class ContextoModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

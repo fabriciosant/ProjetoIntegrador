@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LoKMais.Migrations
 {
-    [DbContext(typeof(Contexto))]
+    [DbContext(typeof(LkContextDB))]
     [Migration("20210604223525_Initial")]
     partial class Initial
     {

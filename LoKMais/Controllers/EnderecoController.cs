@@ -14,11 +14,11 @@ namespace LoKMais.Controllers
         private readonly IToastNotification _toastNotification;
         private readonly UserManager<Cliente> _userManager;
         private readonly SignInManager<Cliente> _signInManager;
-        private Contexto _contexto;
+        private LkContextDB _contexto;
         public EnderecoController(IToastNotification toastNotification,
             UserManager<Cliente> userManager,
             SignInManager<Cliente> signInManager,
-            Contexto contexto)
+            LkContextDB contexto)
         {
             _signInManager = signInManager;
             _toastNotification = toastNotification;

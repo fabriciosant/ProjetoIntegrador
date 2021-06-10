@@ -3,6 +3,7 @@ using LoKMais.Models.Entities;
 using LoKMais.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
+using System;
 using System.Threading.Tasks;
 
 namespace LoKMais.Controllers
@@ -10,13 +11,13 @@ namespace LoKMais.Controllers
     public class VeiculoController : Controller
     {
         private readonly IToastNotification _toastNotification;
-        private Contexto _contexto;
-        public VeiculoController(IToastNotification toastNotification, Contexto contexto)
+        private LkContextDB _contexto;
+        public VeiculoController(IToastNotification toastNotification, LkContextDB contexto)
         {
             _toastNotification = toastNotification;
             _contexto = contexto;
         }
-
+        #region Adicionar Veiculo
         [HttpGet]
         public IActionResult AdicionarVeiculo()
         {
@@ -38,6 +39,14 @@ namespace LoKMais.Controllers
                 _toastNotification.AddErrorToastMessage("Erro ao cadastrar veiculo.");
             }
             return RedirectToAction("Index", "Home");
+        }
+        #endregion
+
+
+        [HttpGet]
+        public IActionResult Editar()
+        {
+            return View();
         }
     }
 }

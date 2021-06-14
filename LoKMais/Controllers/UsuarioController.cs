@@ -73,47 +73,45 @@ namespace LoKMais.Controllers
 
         #region Editar Usuario
         [HttpGet]
-        public IActionResult Editar(string email)
+        public async Task<IActionResult> Editar(string email)
         {
-            var usuario = _userManager.FindByEmailAsync(email);
+            var usuario = await _userManager.FindByEmailAsync(email);
             EditarUsuarioViewModel usuarioModel = new EditarUsuarioViewModel
             {
-                NomeCompleto = usuario.Result.NomeCompleto,
-                Cpf = usuario.Result.UserName,
-                Email = usuario.Result.Email,
-                Telefone = usuario.Result.PhoneNumber,
+                NomeCompleto = usuario.NomeCompleto,
+                Cpf = usuario.UserName,
+                Email = usuario.Email,
+                Telefone = usuario.PhoneNumber,
             };
             return View(usuarioModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Editar(EditarUsuarioViewModel model, IUserSecurityStampStore<Cliente> userSecurityStampStore)
+        public async Task<IActionResult> Editar(EditarUsuarioViewModel model)
         {
+            if (string.IsNullOrEmpty(model.Cpf))
+            {
+                _toastNotification.AddErrorToastMessage("CPf Invalido!");
+                return View(model);
+            }
             var cpf = new CPF(model.Cpf);
             cpf.SemFormatacao();
 
             var usuario = await _userManager.FindByNameAsync(cpf.Codigo);
-            var token = await _userManager.GeneratePasswordResetTokenAsync(usuario);
 
             if (usuario != null)
             {
-                var cliente = new Cliente()
-                {
-                    UserName = cpf.Codigo,
-                    NomeCompleto = model.NomeCompleto,
-                    Email = model.Email,
-                    PhoneNumber = model.Telefone
-                };
-                await _userManager.UpdateSecurityStampAsync
-                    (cliente);
+                usuario.UserName = cpf.Codigo;
+                usuario.NomeCompleto = model.NomeCompleto;
+                usuario.Email = model.Email;
+                usuario.PhoneNumber = model.Telefone;
 
-                //var resultadoAlteracao =
-                ////await _userManager.ResetPasswordAsync(usuario, token);
+                await _userManager.UpdateAsync(usuario);
 
-                _logger.LogWarning($"Usuário alterado com sucesso: Usuario{usuario.UserName}, E-mail {usuario.Email}.");
                 _toastNotification.AddSuccessToastMessage("Alteração Salva!");
-                return RedirectToAction("ListaDeUsuarios", "Administracao", new { cpf = model.Cpf });
+                return RedirectToAction("ListaDeUsuarios", new { cpf = model.Cpf });
             }
+            _toastNotification.AddErrorToastMessage("Usuario não encotrado!");
             return View(model);
         }
         #endregion

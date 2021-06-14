@@ -13,9 +13,16 @@ namespace LoKMais.Repositories
     {
         public VeiculoRepository(LkContextDB contexto) : base(contexto) { }
 
-        public async Task<IList<Veiculo>> BuscarVeiculoPorIdAsync()
+        public async Task<IList<Veiculo>> BuscarTodosAsync()
         {
             return await _dbSet.ToListAsync();
+        }
+
+        public async Task<Veiculo> BuscarPorIdAsync(Guid id)
+        {
+            var veiculoResult = await _dbSet.FirstOrDefaultAsync(veiculo => veiculo.Id == id);
+
+            return veiculoResult;
         }
     }
 }

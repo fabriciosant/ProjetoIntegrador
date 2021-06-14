@@ -61,5 +61,18 @@ namespace LoKMais.Models.ViewModels
             Foto = Foto.ConvertToBytes(),
             Descricao = Descricao
         };
+
+        public VeiculoViewModel ToViewModel(Veiculo veiculo) => new VeiculoViewModel
+        {
+            Modelo = veiculo.Modelo,
+            Marca = veiculo.Marca,
+            Categoria = veiculo.Categoria,
+            Placa = veiculo.Placa,
+            Ano = veiculo.Ano,
+            TipoCombustivel = veiculo.TipoCombustivel,
+            Cor = veiculo.Cor,
+            Foto = veiculo.ConverterByteToIFormFile(),
+            Descricao =veiculo.Descricao
+        };
     }
 }

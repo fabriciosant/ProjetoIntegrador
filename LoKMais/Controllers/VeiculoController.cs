@@ -1,4 +1,5 @@
 ﻿using LoKMais.Data;
+using LoKMais.Interfaces;
 using LoKMais.Models.Entities;
 using LoKMais.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,14 @@ namespace LoKMais.Controllers
     {
         private readonly IToastNotification _toastNotification;
         private LkContextDB _contexto;
-        public VeiculoController(IToastNotification toastNotification, LkContextDB contexto)
+        private readonly IVeiculoRepository _veiculoRepository;
+        public VeiculoController(IToastNotification toastNotification,
+            LkContextDB contexto,
+            IVeiculoRepository veiculoRepository)
         {
             _toastNotification = toastNotification;
             _contexto = contexto;
+            _veiculoRepository = veiculoRepository;
         }
         #region Adicionar Veiculo
         [HttpGet]
@@ -29,6 +34,11 @@ namespace LoKMais.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (model.Foto.ContentType != "image/png")
+                {
+                    _toastNotification.AddErrorToastMessage("Arquivos somente em formato PNG");
+                    return RedirectToAction("Index", "Home");
+                }
                 var veiculo = model.ToModel();
                 var result = await _contexto.AddAsync(veiculo);
                 await result.Context.SaveChangesAsync();
@@ -42,10 +52,27 @@ namespace LoKMais.Controllers
         }
         #endregion
 
-
+         
         [HttpGet]
-        public IActionResult Editar()
+        public IActionResult Editar(Guid id)
         {
+            return View();
+        }
+
+        public async Task<IActionResult> Deletar(Guid id)
+        {
+            var veiculo = await _veiculoRepository.BuscarPorIdAsync(id);
+
+            if (veiculo != null)
+            {
+                _toastNotification.AddErrorToastMessage("Erro ao deletar");
+            }
+            else
+            {
+                await _veiculoRepository.RemoveAsync(veiculo);
+                _toastNotification.AddSuccessToastMessage("Veiculo Deletado com Sucesso!");
+            }
+
             return View();
         }
     }

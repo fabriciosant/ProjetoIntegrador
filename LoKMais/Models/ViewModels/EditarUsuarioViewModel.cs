@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LoKMais.Models.ViewModels
 {
-    public class EditarUsuarioViewModel : Cliente
+    public class EditarUsuarioViewModel
     {
         [Required(ErrorMessage = "Digite seu nome completo")]
         [Display(Name = "Nome Completo")]
@@ -20,7 +20,7 @@ namespace LoKMais.Models.ViewModels
         [Required(ErrorMessage = "Email inválido")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Informe um Email válido")]
         [Display(Name = "E-mail")]
-        public override string Email { get; set; }
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Telefone deve conter 9 digitos, ex.:(91234-1234) ")]
         [RegularExpression(@"^([1-9]{2})[0-9]{4,5}-[0-9]{4}$", ErrorMessage = "Telefone inválido")]

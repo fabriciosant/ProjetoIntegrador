@@ -20,11 +20,11 @@
                     @foreach (var veiculo in Model)
                     {
                         <div class="card m-1" style="width: 20rem;">
-                            <img class="card-img-top" src="/Assets/larg_@(veiculo.Foto).png" alt="Imagem carro">
+                            <img class="card-img-top" src="/Home/AbrirArquivo?veiculoId=@veiculo.Id" alt="Imagem carro" height="80%">
                             <div class="card-body text-center">
                                 <h5 class="card-title">@veiculo.Modelo</h5>
                                 <p class="card-text">@veiculo.Marca</p>
-                                <a href="#" class="btn btn-primary">Ver Detalhes</a>
+                                <a class="btn btn-primary" data-toggle="modal">Detalhes do Veiculo</a>
                             </div>
                         </div>
                     }

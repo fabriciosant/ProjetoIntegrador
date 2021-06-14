@@ -33,19 +33,25 @@ namespace LoKMais.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var veiculo = await _veiculoRepository.BuscarVeiculoPorIdAsync();
+            var veiculo = await _veiculoRepository.BuscarTodosAsync();
             if (veiculo == null)
             {
                 _toastNotification.AddErrorToastMessage("Nenhum veiculo foi encontrado!");
                 return RedirectToAction("PaginaInicial", "Home");
             }
-
             return View(veiculo);
         }
         
         public IActionResult PaginaInicial()
         {
             return View();
+        }
+
+        public async Task<IActionResult> AbrirArquivo(Guid veiculoId)
+        {
+            var veiculo = await _veiculoRepository.BuscarPorIdAsync(veiculoId);
+
+            return File(veiculo.Foto, "image/png");
         }
 
         public IActionResult Privacy()

@@ -7,6 +7,7 @@ namespace LoKMais.Interfaces
 {
     public interface IVeiculoRepository : IResositoryBase<Veiculo>
     {
-        Task<IList<Veiculo>> BuscarVeiculoPorIdAsync();
+        Task<IList<Veiculo>> BuscarTodosAsync();
+        Task<Veiculo> BuscarPorIdAsync(Guid id);
     }
 }

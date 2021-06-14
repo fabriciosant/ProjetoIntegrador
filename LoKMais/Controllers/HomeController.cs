@@ -1,8 +1,10 @@
 ﻿using LoKMais.Data;
+using LoKMais.Interfaces;
 using LoKMais.Models;
 using LoKMais.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NToastNotify;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -14,18 +16,31 @@ namespace LoKMais.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly LkContextDB _contexto;
+        private readonly IVeiculoRepository _veiculoRepository;
+        private readonly IToastNotification _toastNotification;
+
         public HomeController(ILogger<HomeController> logger,
-            LkContextDB contexto)
+            LkContextDB contexto,
+            IVeiculoRepository veiculoRepository,
+            IToastNotification toastNotification)
         {
             _logger = logger;
             _contexto = contexto;
+            _veiculoRepository = veiculoRepository;
+            _toastNotification = toastNotification;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(Guid id)
+        public async Task<IActionResult> Index()
         {
+            var veiculo = await _veiculoRepository.BuscarVeiculoPorIdAsync();
+            if (veiculo == null)
+            {
+                _toastNotification.AddErrorToastMessage("Nenhum veiculo foi encontrado!");
+                return RedirectToAction("PaginaInicial", "Home");
+            }
 
-            return View();
+            return View(veiculo);
         }
         
         public IActionResult PaginaInicial()

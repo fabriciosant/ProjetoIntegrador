@@ -1,6 +1,8 @@
 using LoKMais.Data;
+using LoKMais.Interfaces;
 using LoKMais.Models;
 using LoKMais.Models.ViewModels;
+using LoKMais.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -54,6 +56,7 @@ namespace LoKMais
                     ProgressBar = true,
                     PositionClass = ToastPositions.TopRight
                 });
+            services.AddScoped<IVeiculoRepository, VeiculoRepository>();
         }
 
         public void Configure(IApplicationBuilder app,

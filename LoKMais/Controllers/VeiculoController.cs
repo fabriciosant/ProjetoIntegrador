@@ -58,6 +58,13 @@ namespace LoKMais.Controllers
         {
             return View();
         }
+        
+        [HttpGet]
+        public async Task<IActionResult> Detalhes()
+        {
+            var veiculoResult = await _veiculoRepository.BuscarTodosAsync();
+            return View(veiculoResult);
+        }
 
         public async Task<IActionResult> Deletar(Guid id)
         {

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<LoKMais.Models.Entities.Veiculo>
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+
+<div class="card my-4">
+    <div class="card-header text-center bg-info">
+        <h2 class="text-white font-italic">Lista de veiculos</h2>
+    </div>
+    <table class="table  table-borderless border table-striped text-center">
+        <thead>
+            <tr class="text-muted">
+                <th>
+                    @Html.DisplayNameFor(model => model.Modelo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Marca)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categoria)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Placa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ano)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoCombustivel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descricao)
+                </th>
+                <th>Acões</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modelo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categoria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Placa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ano)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoCombustivel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descricao)
+                    </td>
+                    <td>
+                        <a asp-action="Editar" asp-controller="Veiculo" asp-route-id="@item.Id" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>
+                        <a asp-action="Deletar" asp-controller="Veiculo" asp-route-id="@item.Id" class="btn btn-danger">Deletar <i class="fa fa-trash fa-1"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

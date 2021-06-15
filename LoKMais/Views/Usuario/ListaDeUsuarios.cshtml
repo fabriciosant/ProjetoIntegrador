@@ -2,8 +2,7 @@
 @{
     ViewData["Title"] = "Lista de Usuarios";
 }
-<div class="container my-4">
-    <div class="card">
+    <div class="card my-4">
         <div class="card-header text-center bg-info">
             <h2 class="text-white font-italic">Lista de usuários</h2>
         </div>
@@ -16,9 +15,10 @@
                 <thead>
                     <tr class="row m-0 text-black-50">
                         <th class="col-md-3">Nome Completo</th>
-                        <th class="col-md-3">CPF</th>
+                        <th class="col-md-2">CPF</th>
                         <th class="col-md-3">E-mail</th>
-                        <th class="col-md-3">Ação</th>
+                        <th class="col-md-2">Telefone</th>
+                        <th class="col-md-2">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,13 +38,16 @@
                                 <td class="col-md-3">
                                     @usuario.NomeCompleto
                                 </td>
-                                <td class="col-md-3">
+                                <td class="col-md-2">
                                     @(new CPF(usuario.UserName).ComFormatacao())
                                 </td>
                                 <td class="col-md-3">
                                     @usuario.Email
                                 </td>
-                                <td class="col-md-3">
+                                <td class="col-md-2">
+                                    @usuario.PhoneNumber
+                                </td>
+                                <td class="col-md-2">
                                     <a asp-controller="Usuario" asp-action="Editar" asp-route-email="@usuario.Email" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>
                                     <a class="btn btn-danger text-white" data-toggle="modal" data-target="#confirmarDelete">Deletar <i class="fa fa-trash fa-1"></i></a>
                                 </td>
@@ -56,7 +59,6 @@
             </table>
         </div>
     </div>
-</div>
 @if (Model.Count() == 0)
 {
 

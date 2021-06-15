@@ -10,6 +10,8 @@ namespace LoKMais.Models.ViewModels
 {
     public class VeiculoViewModel
     {
+        public Guid Id { get; set; }
+
         [Required(ErrorMessage = "Insira o modelo do veículo.")]
         [Display(Name = "Modelo")]
         public string Modelo { get; set; }

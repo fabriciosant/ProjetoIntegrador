@@ -11,6 +11,7 @@ namespace LoKMais.Controllers
 {
     public class VeiculoController : Controller
     {
+        #region Dependencias
         private readonly IToastNotification _toastNotification;
         private LkContextDB _contexto;
         private readonly IVeiculoRepository _veiculoRepository;
@@ -22,6 +23,8 @@ namespace LoKMais.Controllers
             _contexto = contexto;
             _veiculoRepository = veiculoRepository;
         }
+        #endregion
+
         #region Adicionar Veiculo
         [HttpGet]
         public IActionResult AdicionarVeiculo()
@@ -52,20 +55,60 @@ namespace LoKMais.Controllers
         }
         #endregion
 
-         
+        #region Editar Veiculo 
         [HttpGet]
-        public IActionResult Editar(Guid id)
+        public async Task<IActionResult> Editar(Guid id)
         {
-            return View();
+            var veiculo = await _veiculoRepository.BuscarPorIdAsync(id);
+            VeiculoViewModel veiculoModel = new VeiculoViewModel
+            {
+                Modelo = veiculo.Modelo,
+                Marca = veiculo.Marca,
+                Categoria = veiculo.Categoria,
+                Placa = veiculo.Placa,
+                Ano = veiculo.Ano,
+                TipoCombustivel = veiculo.TipoCombustivel,
+                Cor = veiculo.Cor,
+                Descricao = veiculo.Descricao
+            };
+            return View(veiculoModel);
         }
-        
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(VeiculoViewModel model)
+        {
+            var veiculo = await _veiculoRepository.BuscarPorIdAsync(model.Id);
+
+            if (veiculo != null)
+            {
+                veiculo.Modelo = model.Modelo;
+                veiculo.Marca = model.Marca;
+                veiculo.Categoria = model.Categoria;
+                veiculo.Placa = model.Placa;
+                veiculo.Ano = model.Ano;
+                veiculo.TipoCombustivel = model.TipoCombustivel;
+                veiculo.Cor = model.Cor;
+                veiculo.Descricao = model.Descricao;
+
+                await _veiculoRepository.UpdateAsync(veiculo);
+                _toastNotification.AddSuccessToastMessage("Alterações salvas!");
+                return RedirectToAction("Detalhes");
+            }
+            _toastNotification.AddErrorToastMessage("Veiculo não encontrado!");
+            return View(model);
+        }
+        #endregion
+
+        #region Detalhes Veiculo
         [HttpGet]
         public async Task<IActionResult> Detalhes()
         {
             var veiculoResult = await _veiculoRepository.BuscarTodosAsync();
             return View(veiculoResult);
         }
+        #endregion
 
+        #region Deletar Veiculo
         public async Task<IActionResult> Deletar(Guid id)
         {
             var veiculo = await _veiculoRepository.BuscarPorIdAsync(id);
@@ -82,5 +125,6 @@ namespace LoKMais.Controllers
 
             return View();
         }
+        #endregion
     }
 }

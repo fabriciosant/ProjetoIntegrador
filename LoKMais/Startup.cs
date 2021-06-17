@@ -122,7 +122,7 @@ namespace LoKMais
 
             if (userexists == null)
             {
-                var cpf = new CPF("064.608.675-85");
+                var cpf = new CPF("886.922.770-70");
                 cpf.SemFormatacao();
 
                 var usuario = new Cliente()  

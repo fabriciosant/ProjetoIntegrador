@@ -19,7 +19,7 @@
                     <div class="col-md-4">
                         <div class="ui-form-group">
                             <label asp-for="Modelo" class="ui-form-group-label"></label>
-                            <input asp-for="Modelo" class="ui-form-group-input" />
+                            <input asp-for="Modelo" class="ui-form-group-input" id="modelo" />
                             <span asp-validation-for="Modelo" class="text-danger"></span>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                     <div class="col-md-4">
                         <div class="ui-form-group">
                             <label asp-for="Placa" class="ui-form-group-label"></label>
-                            <input asp-for="Placa" class="ui-form-group-input" />
+                            <input asp-for="Placa" class="ui-form-group-input" id="placa" />
                             <span asp-validation-for="Placa" class="text-danger"></span>
                         </div>
                     </div>
@@ -101,6 +101,16 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script>
+        $('#modelo').on('keyup', (ev) => {
+            $('#modelo').val($('#modelo').val().toUpperCase());
+        })
+        $('#placa').on('keyup', (ev) => {
+            $('#placa').val($('#placa').val().toUpperCase());
+        });
+    </script>
+}
 
 
 

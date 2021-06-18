@@ -21,7 +21,7 @@
                 <th class="col-md-1">Categoria</th>
                 <th class="col-md-1">Placa</th>
                 <th class="col-md-1">Ano</th>
-                <th class="col-md-2">TipoCombustivel</th>
+                <th class="col-md-2">Combustivel</th>
                 <th class="col-md-1">Cor</th>
                 <th class="col-md-2">Descricao</th>
                 <th class="col-md-2">Acões</th>
@@ -45,7 +45,7 @@
                         <td class="col-md-1">@veiculo.Marca</td>
                         <td class="col-md-1">@veiculo.Categoria</td>
                         <td class="col-md-1">@veiculo.Placa</td>
-                        <td class="col-md-1">@veiculo.Ano</td>
+                        <td class="col-md-1">@Html.DisplayFor(modelveiculo => veiculo.Ano)</td>
                         <td class="col-md-2">@veiculo.TipoCombustivel</td>
                         <td class="col-md-1">@veiculo.Cor</td>
                         <td class="col-md-2">@veiculo.Descricao</td>

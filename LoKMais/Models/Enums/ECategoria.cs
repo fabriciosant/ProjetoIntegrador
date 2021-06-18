@@ -4,7 +4,7 @@ namespace LoKMais.Models.Enums
 {
     public enum ECategoria
     {
-        [Display(Name ="Motocicleta")] Motocicleta,
-        [Display(Name ="Automovél")]Automovel
+        [Display(Name ="Automovél")]Automovel,
+        [Display(Name ="Motocicleta")] Motocicleta
     }
 }

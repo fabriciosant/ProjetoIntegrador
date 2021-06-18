@@ -1,4 +1,4 @@
-﻿using LoKMais.Data;
+﻿ using LoKMais.Data;
 using LoKMais.Interfaces;
 using LoKMais.Models.Entities;
 using LoKMais.Models.ViewModels;
@@ -115,15 +115,15 @@ namespace LoKMais.Controllers
 
             if (veiculo != null)
             {
-                _toastNotification.AddErrorToastMessage("Erro ao deletar");
-            }
-            else
-            {
                 await _veiculoRepository.RemoveAsync(veiculo);
                 _toastNotification.AddSuccessToastMessage("Veiculo Deletado com Sucesso!");
             }
+            else
+            {
+                _toastNotification.AddErrorToastMessage("Erro ao deletar");
+            }
 
-            return View();
+            return RedirectToAction("Detalhes");
         }
         #endregion
     }

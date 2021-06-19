@@ -1,0 +1,36 @@
+﻿@model LoKMais.Models.Endereco
+
+@{
+    ViewData["Title"] = "Detalhe";
+}
+<div class="card my-4">
+    <table class="table  table-borderless border table-striped text-center">
+        <thead>
+            <tr class="row m-0 text-black-50">
+                <th class="col-md-1">Cep</th>
+                <th class="col-md-2">Logradouro</th>
+                <th class="col-md-1">Número</th>
+                <th class="col-md-2">Bairro</th>
+                <th class="col-md-1">Cidade</th>
+                <th class="col-md-1">UF</th>
+                <th class="col-md-2">Complemento</th>
+                <th class="col-md-2">Acões</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr class="row m-0 align-items-center">
+                    <td class="col-md-1">@Html.DisplayFor(model => model.Cep)</td>
+                    <td class="col-md-2">@Html.DisplayFor(model => model.Logradouro)</td>
+                    <td class="col-md-1">@Html.DisplayFor(model => model.Numero)</td>
+                    <td class="col-md-2">@Html.DisplayFor(model => model.Bairro)</td>
+                    <td class="col-md-1">@Html.DisplayFor(model => model.Cidade)</td>
+                    <td class="col-md-1">@Html.DisplayFor(model => model.Uf)</td>
+                    <td class="col-md-2">@Html.DisplayFor(model => model.Complemento)</td>
+                    <td class="col-md-2">
+                        @*<a asp-action="Editar" asp-controller="Endereco" asp-route-id="@Model.EnderecoId" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>
+                        <a asp-action="Deletar" asp-controller="Endereco" asp-route-id="@Model.EnderecoId" class="btn btn-danger">Deletar <i class="fa fa-trash fa-1"></i></a>*@
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</div>

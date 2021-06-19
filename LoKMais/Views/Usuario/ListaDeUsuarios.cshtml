@@ -14,10 +14,11 @@
             <table class="table table-borderless border table-striped text-center">
                 <thead>
                     <tr class="row m-0 text-black-50">
-                        <th class="col-md-3">Nome Completo</th>
+                        <th class="col-md-2">Nome Completo</th>
                         <th class="col-md-2">CPF</th>
                         <th class="col-md-3">E-mail</th>
                         <th class="col-md-2">Telefone</th>
+                        <th class="col-md-1">Endereço</th>
                         <th class="col-md-2">Ação</th>
                     </tr>
                 </thead>
@@ -35,7 +36,7 @@
                         @foreach (var usuario in Model)
                         {
                             <tr class="row m-0 align-items-center">
-                                <td class="col-md-3">
+                                <td class="col-md-2">
                                     @usuario.NomeCompleto
                                 </td>
                                 <td class="col-md-2">
@@ -46,6 +47,9 @@
                                 </td>
                                 <td class="col-md-2">
                                     @usuario.PhoneNumber
+                                </td>
+                                <td class="col-md-1">
+                                    <a asp-controller="Endereco" asp-action="Detalhe" asp-route-email="@usuario.UserName" class="btn btn-outline-success">Endereco</a>
                                 </td>
                                 <td class="col-md-2">
                                     <a asp-controller="Usuario" asp-action="Editar" asp-route-email="@usuario.Email" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>

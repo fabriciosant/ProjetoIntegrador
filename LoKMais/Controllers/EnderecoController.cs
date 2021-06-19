@@ -1,4 +1,5 @@
 ﻿using LoKMais.Data;
+using LoKMais.Interfaces;
 using LoKMais.Models;
 using LoKMais.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -11,20 +12,24 @@ namespace LoKMais.Controllers
 {
     public class EnderecoController : Controller
     {
+        #region Dependencias
         private readonly IToastNotification _toastNotification;
         private readonly UserManager<Cliente> _userManager;
         private readonly SignInManager<Cliente> _signInManager;
-        private LkContextDB _contexto;
+        private readonly IEnderecoRepository _enderecoRepository;
         public EnderecoController(IToastNotification toastNotification,
             UserManager<Cliente> userManager,
             SignInManager<Cliente> signInManager,
-            LkContextDB contexto)
+            IEnderecoRepository enderecoRepository)
         {
             _signInManager = signInManager;
             _toastNotification = toastNotification;
             _userManager = userManager;
-            _contexto = contexto;
+            _enderecoRepository = enderecoRepository;
         }
+        #endregion
+
+        #region Criar Endereco
         public IActionResult CriarEndereco(string cpf)
         {
             ViewBag.cpf = cpf;
@@ -65,6 +70,58 @@ namespace LoKMais.Controllers
             _toastNotification.AddSuccessToastMessage("Endereco Cadastrado!");
             return RedirectToAction("ListaDeUsuarios", "Usuario");
         }
+        #endregion
 
+        #region Detalhes Endereço
+        [HttpGet]
+        public async Task<IActionResult> Detalhe(Guid id)
+        {
+            var endereco = await _enderecoRepository.BuscarEnderecoPorIdAsync(id);
+            return View(endereco);
+        }
+
+        #endregion
+
+        #region Editar Endereço
+        [HttpGet]
+        public async Task<IActionResult> Editar(Guid enderecoId)
+        {
+            var endereco = await _enderecoRepository.BuscarEnderecoPorIdAsync(enderecoId);
+            EnderecoViewModel enderecoModel = new EnderecoViewModel
+            {
+                Cep = endereco.Cep,
+                Logradouro = endereco.Logradouro,
+                Numero = endereco.Numero,
+                Bairro = endereco.Bairro,
+                Cidade = endereco.Cidade,
+                Uf = endereco.Uf,
+                Complemento = endereco.Complemento
+            };
+            return View(enderecoModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(EnderecoViewModel model)
+        {
+            var endereco = await _enderecoRepository.BuscarEnderecoPorIdAsync(model.Id);
+
+            if (endereco != null)
+            {
+                endereco.Cep = model.Cep;
+                endereco.Logradouro = model.Logradouro;
+                endereco.Numero = model.Numero;
+                endereco.Bairro = model.Bairro;
+                endereco.Cidade = model.Cidade;
+                endereco.Uf = model.Uf;
+                endereco.Complemento = model.Complemento;
+
+                await _enderecoRepository.UpdateAsync(endereco);
+                _toastNotification.AddSuccessToastMessage("Alterações salvas!");
+                return RedirectToAction("Index", "Home");
+            }
+            _toastNotification.AddErrorToastMessage("Endereço não encontrado!");
+            return View(model);
+        }
+        #endregion
     }
 }

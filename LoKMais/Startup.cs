@@ -57,6 +57,7 @@ namespace LoKMais
                     PositionClass = ToastPositions.TopRight
                 });
             services.AddScoped<IVeiculoRepository, VeiculoRepository>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
         }
 
         public void Configure(IApplicationBuilder app,

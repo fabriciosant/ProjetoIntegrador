@@ -8,6 +8,8 @@ namespace LoKMais.Models.ViewModels
 {
     public class EnderecoViewModel
     {
+        public Guid Id { get; set; }
+
         [Required(ErrorMessage = "Número de CPF Inválido")]
         [RegularExpression(@"[0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[-][0-9]{2}", ErrorMessage = "Número de CPF Inválido")]
         [Display(Name = "CPF")]

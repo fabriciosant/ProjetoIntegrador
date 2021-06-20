@@ -9,6 +9,9 @@
         <div class="card-header text-center bg-info">
             <h2 class="text-white font-italic">Editar Dados</h2>
         </div>
+        <div class="col-md-1">
+            <a asp-controller="Usuario" asp-action="ListaDeUsuarios"><i class="fa fa-arrow-circle-left fa-2x text-info"></i></a>
+        </div>
         <div class="card-body">
             <form asp-controller="Usuario" asp-action="Editar">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -38,7 +41,7 @@
                     </div>
                 </div>
                 <div class="row m-0 ui-form-group">
-                    <input type="submit" class="btn btn-secondary font-weight-bold col" value="Alterar" />
+                    <input type="submit" class="btn btn-success font-weight-bold col" value="Finalizar alterações" />
                 </div>
             </form>
         </div>

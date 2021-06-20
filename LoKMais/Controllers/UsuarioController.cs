@@ -120,8 +120,17 @@ namespace LoKMais.Controllers
         [HttpGet]
         public async Task<IActionResult> ListaDeUsuarios()
         {
-            var listaUsuario = await _userManager.Users.Where(x => x.Email != "Fabriciosan47@gmail.com").ToListAsync();
+            var listaUsuario = await _userManager.Users.Where(x => x.Email != "Fabriciosan47@gmail.com").Include(e => e.Endereco).ToListAsync();
             return View(listaUsuario);
+        }
+        #endregion
+
+        #region Detalhes do Usuario
+        [HttpGet]
+        public async Task<IActionResult> DetalheUsuario(string email)
+        {
+            var detalheUsuario = await _userManager.FindByEmailAsync(email);
+            return View(detalheUsuario);
         }
         #endregion
 

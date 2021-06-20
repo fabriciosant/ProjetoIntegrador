@@ -3,7 +3,10 @@
 @{
     ViewData["Title"] = "Detalhe";
 }
-<div class="card my-4">
+<div class="card my-4  mx-1">
+    <div class="card-header text-center bg-info">
+        <h2 class="text-white font-italic">Detalhes Endereço</h2>
+    </div>
     <table class="table  table-borderless border table-striped text-center">
         <thead>
             <tr class="row m-0 text-black-50">
@@ -18,19 +21,19 @@
             </tr>
         </thead>
         <tbody>
-                <tr class="row m-0 align-items-center">
-                    <td class="col-md-1">@Html.DisplayFor(model => model.Cep)</td>
-                    <td class="col-md-2">@Html.DisplayFor(model => model.Logradouro)</td>
-                    <td class="col-md-1">@Html.DisplayFor(model => model.Numero)</td>
-                    <td class="col-md-2">@Html.DisplayFor(model => model.Bairro)</td>
-                    <td class="col-md-1">@Html.DisplayFor(model => model.Cidade)</td>
-                    <td class="col-md-1">@Html.DisplayFor(model => model.Uf)</td>
-                    <td class="col-md-2">@Html.DisplayFor(model => model.Complemento)</td>
-                    <td class="col-md-2">
-                        @*<a asp-action="Editar" asp-controller="Endereco" asp-route-id="@Model.EnderecoId" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>
-                        <a asp-action="Deletar" asp-controller="Endereco" asp-route-id="@Model.EnderecoId" class="btn btn-danger">Deletar <i class="fa fa-trash fa-1"></i></a>*@
-                    </td>
-                </tr>
+            <tr class="row m-0 align-items-center">
+                <td class="col-md-1">@Html.DisplayFor(model => model.Cep)</td>
+                <td class="col-md-2">@Html.DisplayFor(model => model.Logradouro)</td>
+                <td class="col-md-1">@Html.DisplayFor(model => model.Numero)</td>
+                <td class="col-md-2">@Html.DisplayFor(model => model.Bairro)</td>
+                <td class="col-md-1">@Html.DisplayFor(model => model.Cidade)</td>
+                <td class="col-md-1">@Html.DisplayFor(model => model.Uf)</td>
+                <td class="col-md-2">@Html.DisplayFor(model => model.Complemento)</td>
+                <td class="col-md-2">
+                    <a asp-action="Editar" asp-controller="Endereco" asp-route-enderecoId="@Model.EnderecoId" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>
+                    <a asp-action="Deletar" asp-controller="Endereco" asp-route-id="@Model.EnderecoId" class="btn btn-danger">Deletar <i class="fa fa-trash fa-1"></i></a>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

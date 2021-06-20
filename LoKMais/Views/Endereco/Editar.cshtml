@@ -13,13 +13,14 @@
                 <i class="fa fa-info-circle fa-1x"></i>
                 <strong>Dica: </strong>Preencha os campos obrigatórios <i class="fa fa-asterisk fa-1x text-danger"></i>.
             </div>
-            <form asp-action="CriarEndereco" asp-controller="Endereco" method="post" autocomplete="off">
+            <form asp-action="Editar" asp-controller="Endereco" method="post" autocomplete="off">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <span class="text-black-50 font-italic">Digite apenas números, sem pontos ou hífen</span>
                 <div class="row">
                     <input name="Cpf" type="hidden" value="@ViewBag.cpf" />
+                    <input name="Id" type="hidden" asp-for="Id" />
                     <div class="col-md-3 ui-form-group">
-                        <label asp-for="Cep" class="ui-form-group-label">CPF<span class="text-danger font-weight-bold">*</span></label>
+                        <label asp-for="Cep" class="ui-form-group-label">CEP<span class="text-danger font-weight-bold">*</span></label>
                         <input asp-for="Cep" type="text" class="ui-form-group-input form-control" id="cep" required placeholder="Ex.: 12345-678" />
                         <span asp-validation-for="Cep" class="text-danger"></span>
                     </div>

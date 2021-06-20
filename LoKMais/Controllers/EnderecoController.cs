@@ -124,5 +124,23 @@ namespace LoKMais.Controllers
             return View(model);
         }
         #endregion
+
+        #region Deletar Endereço
+        public async Task<IActionResult> DeletarEndereco(Guid id)
+        {
+            var endereco = await _enderecoRepository.BuscarEnderecoPorIdAsync(id);
+            if (endereco != null)
+            {
+               await _enderecoRepository.RemoveAsync(endereco);
+                _toastNotification.AddSuccessToastMessage("Endereço Deletado com sucesso!");
+            }
+            else
+            {
+                _toastNotification.AddErrorToastMessage("Erro ao deletar Endereço");
+            }
+
+            return RedirectToAction("ListaDeUsuarios", "Usuario");
+        }
+        #endregion
     }
 }

@@ -14,8 +14,8 @@ namespace LoKMais.Models.ViewModels
 
         [Display(Name ="Senha")]
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Sua senha deve conter letra maiúscula, mínúscula e 8 digitos, ex.: Senha123")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*#?&]{8,}$", ErrorMessage = "Sua senha deve conter letra maiúscula, mínúscula e 8 digitos, ex.: Senha123")]
+        [Required(ErrorMessage = "Senha inválida")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*#?&]{8,}$", ErrorMessage = "Senha inválida")]
         public string Senha { get; set; }
 
         [Display(Name ="Mantenha-me conectado")]

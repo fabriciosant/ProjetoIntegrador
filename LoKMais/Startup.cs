@@ -1,6 +1,8 @@
 using LoKMais.Data;
+using LoKMais.Interfaces;
 using LoKMais.Models;
 using LoKMais.Models.ViewModels;
+using LoKMais.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +31,7 @@ namespace LoKMais
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Contexto>(options => options.UseSqlServer(Configuration.GetConnectionString("DBLokMais"), p => p.MigrationsHistoryTable("HistoricoDasMigrastions", "LokMais"))).AddIdentity<Cliente, IdentityRole<Guid>>(options =>
+            services.AddDbContext<LkContextDB>(options => options.UseSqlServer(Configuration.GetConnectionString("DBLokMais"), p => p.MigrationsHistoryTable("HistoricoDasMigrastions", "LokMais"))).AddIdentity<Cliente, IdentityRole<Guid>>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -37,7 +39,7 @@ namespace LoKMais
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(5);
             })
-                .AddEntityFrameworkStores<Contexto>()
+                .AddEntityFrameworkStores<LkContextDB>()
                 .AddDefaultTokenProviders()
                 .AddErrorDescriber<PortugueseIdentityErrorDescriber>();
             services.ConfigureApplicationCookie(options =>
@@ -54,6 +56,8 @@ namespace LoKMais
                     ProgressBar = true,
                     PositionClass = ToastPositions.TopRight
                 });
+            services.AddScoped<IVeiculoRepository, VeiculoRepository>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
         }
 
         public void Configure(IApplicationBuilder app,
@@ -113,13 +117,13 @@ namespace LoKMais
 
         public async Task CreateAdministradorAsync(IServiceProvider serviceProvider)
         {
-            using var contexto = serviceProvider.GetRequiredService<Contexto>();
+            using var contexto = serviceProvider.GetRequiredService<LkContextDB>();
             using var userManager = serviceProvider.GetRequiredService<UserManager<Cliente>>();
             var userexists = await userManager.FindByNameAsync("fabriciosa47@gmail.com");
 
             if (userexists == null)
             {
-                var cpf = new CPF("064.608.675-85");
+                var cpf = new CPF("886.922.770-70");
                 cpf.SemFormatacao();
 
                 var usuario = new Cliente()  
@@ -128,7 +132,7 @@ namespace LoKMais
                     Email = "Fabriciosan47@gmail.com"
                 };
 
-                var resultRegisterAccount = await userManager.CreateAsync(usuario, "F@bricio20");
+                var resultRegisterAccount = await userManager.CreateAsync(usuario, "Senh@0102");
                 if (resultRegisterAccount.Succeeded)
                 {
                     await userManager.AddToRoleAsync(usuario, "ADMINISTRADOR");

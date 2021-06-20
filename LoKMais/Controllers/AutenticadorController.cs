@@ -1,21 +1,17 @@
 ﻿using LoKMais.Models;
 using LoKMais.Models.ViewModels;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NToastNotify;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LoKMais.Controllers
-{   
+{
     public class AutenticadorController : Controller
     {
+        #region Injeções de Dependecias
         private readonly IToastNotification _toastNotification;
         private readonly UserManager<Cliente> _userManager;
         private readonly SignInManager<Cliente> _signInManager;
@@ -31,10 +27,14 @@ namespace LoKMais.Controllers
             _toastNotification = toastNotification;
             _userManager = userManager;
         }
+        #endregion
 
+        #region AcessoNegado
         [HttpGet]
         public IActionResult AcessoNegado() => View();
+        #endregion
 
+        #region Login
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
@@ -51,6 +51,14 @@ namespace LoKMais.Controllers
         {
             if (ModelState.IsValid)
             {
+                var login = CPF.TirarFormatacao(model.Login);
+
+                if (CPF.Validar(login) == false)
+                {
+                    _toastNotification.AddErrorToastMessage("Cpf inválido!");
+                    return View(model);
+                }
+                
                 var cpf = new CPF(model.Login);
                 cpf.SemFormatacao();
                 var usuario = await _userManager.FindByNameAsync(cpf.Codigo);
@@ -75,7 +83,7 @@ namespace LoKMais.Controllers
                 {
                     _toastNotification.AddSuccessToastMessage("Bem Vindo de volta!");
                     _logger.LogWarning($"Logando Usuario{usuario.UserName}, Email: {usuario.Email}.");
-                    return RedirectToAction("PaginaInicial", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 if (result.IsLockedOut)
@@ -97,7 +105,9 @@ namespace LoKMais.Controllers
             }
             return View(model);
         }
+        #endregion
 
+        #region Logout
         [HttpPost]
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
@@ -109,52 +119,84 @@ namespace LoKMais.Controllers
             ViewData["ReturnUrel"] = returnUrl;
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region AlterarSenha
         [HttpGet]
-        public IActionResult CriarUsuario() => View();
+        public async Task<IActionResult> AlterarSenha(string cpf)
+        {
+            var formatoCpf = new CPF(cpf);
+            cpf = formatoCpf.Codigo;
+            formatoCpf.SemFormatacao();
+
+            var usuario = await _userManager.FindByNameAsync(cpf);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(usuario);
+            var alterarSenha = new AlteracaoSenhaViewModel
+            {
+                Cpf = usuario.UserName,
+                Token = token
+            };
+            return View(alterarSenha);
+        }
 
         [HttpPost]
-        public async Task<IActionResult> CriarUsuario(UsuarioViewModel model)
+        public async Task<IActionResult> AlterarSenha(AlteracaoSenhaViewModel model, string cpf)
         {
-            var cpf = new CPF(model.Cpf);
-            cpf.SemFormatacao();
+            var formatoCpf = new CPF(cpf);
+            cpf = formatoCpf.Codigo;
+            var usuario = await _userManager.FindByNameAsync(cpf);
 
-            var userExist = await _userManager.FindByNameAsync(model.Cpf);
-            if (userExist != null)
+            if (usuario == null)
             {
-                _toastNotification.AddErrorToastMessage("Usuário já cadastrado!");
-                return View(model);
+                _toastNotification.AddErrorToastMessage("CPF invalido, verifique se o CPF informado está correto");
+                return RedirectToAction("AlterarSenha");
             }
 
-            var Senha = model.Senha;
-            if (Senha != model.ConfirmarSenha)
+            if (model.NovaSenha != model.ConfirmarNovaSenha)
             {
-                _toastNotification.AddErrorToastMessage("Senhas não conferem!");
+                _toastNotification.AddErrorToastMessage("Senhas não conferem");
+                return View();
             }
-            else
+
+            var resultadoAlteracao =
+                await _userManager.ResetPasswordAsync(usuario, model.Token, model.NovaSenha);
+
+            if (resultadoAlteracao.Succeeded)
             {
-                var usuario = new Cliente()
+                _toastNotification.AddSuccessToastMessage("Senha alterada com sucesso!");
+                _logger.LogWarning($"Senha alterada com sucesso: Usuario {usuario.UserName}, E-mail {usuario.Email}.");
+                if (User.Identity.IsAuthenticated)
                 {
-                    UserName = cpf.Codigo,
-                    Email = model.Email,
-                    PhoneNumber = model.Telefone
-                };
-                await _userManager.CreateAsync(usuario, model.Senha);
-
-                _logger.LogWarning($"Usuatrio criado com sucesso: Usuario{usuario.UserName}, E-mail {usuario.Email}.");
-                _toastNotification.AddSuccessToastMessage("Usuário Criado");
-                return RedirectToAction("CriarEndereco", "Endereco", new { cpf = model.Cpf });
+                    return RedirectToAction("Usuarios");
+                }
+                else
+                {
+                    return RedirectToAction("Login");
+                }
             }
-            return View();
-        }
-        [HttpGet]
-        public async Task<IActionResult> Usuarios()
-        {
-            var listaUsuario = await _userManager.Users.ToListAsync();
-            //listaUsuario.Remove(listaUsuario.First(p => p.Email == "fabriciosan47@gmail.com"));
-            return View(listaUsuario);
-        }
 
+            _toastNotification.AddErrorToastMessage("Erro na alteração da senha!");
+            AddErrors(resultadoAlteracao);
+            return View(model);
+        }
+        #endregion
+
+        #region RecuperarSenha
+        [HttpGet]
+        public IActionResult RecuperarSenha() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> RecuperarSenha(RecuperarSenhaViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _userManager.FindByNameAsync(model.Cpf);
+            }
+            return RedirectToAction("AlterarSenha", new { cpf = model.Cpf });
+        }
+        #endregion
+
+        #region  AddErros
         protected void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -162,5 +204,6 @@ namespace LoKMais.Controllers
                 ModelState.AddModelError(string.Empty, error.Description);
             }
         }
+        #endregion
     }
 }

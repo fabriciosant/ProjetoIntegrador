@@ -1,0 +1,46 @@
+﻿@model LoKMais.Models.ViewModels.AlteracaoSenhaViewModel
+
+@{
+    ViewData["Title"] = "AlterarSenha";
+}
+
+<div class="container my-4">
+    <div class="card card-light-inverse" style="max-width: 28rem; margin: 0 auto">
+        <div class="card-header text-center bg-info">
+            <h3 class="text-white">Alteração de senha</h3>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-secondary alert-dismissible" role="alert">
+                <i class="fa fa-info-circle fa-1x"></i>
+                <strong>Dica: </strong>Para uma senha forte ultilize letras maiúsculas, minúsculas e números.
+            </div>
+            <form asp-action="AlterarSenha" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Cpf" type="hidden" class="form-control" />
+                <input asp-for="Token" type="hidden" class="form-control" />
+                <div class="ui-form-group">
+                    <label asp-for="NovaSenha" class="ui-form-group-label"></label>
+                    <input asp-for="NovaSenha" id="senha" class="ui-form-group-input form-control" required autocomplete="off" placeholder="********" />
+                    <span asp-validation-for="NovaSenha" class="text-danger"></span>
+                </div>
+                <div class="ui-form-group mt-5">
+                    <label asp-for="ConfirmarNovaSenha" class="ui-form-group-label"></label>
+                    <input asp-for="ConfirmarNovaSenha" id="confirmasenha" class="ui-form-group-input form-control" required autocomplete="off" placeholder="********" />
+                    <span asp-validation-for="ConfirmarNovaSenha" class="text-danger"></span>
+                    <p class="text-black-50 mt-2">
+                        <input type="checkbox" id="mostrarsenha" onclick="mostrarOcutarSenha()" />
+                        <label for="mostrarsenha">Mostar senhas</label>
+                    </p>
+                </div>
+                <div class="ui-form-group text-center">
+                    <input type="submit" value="Alterar" class="btn btn-raised btn-success px-5" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/js/meiomask.js"></script>
+    <script src="~/js/MostrarSenha.js"></script>
+}

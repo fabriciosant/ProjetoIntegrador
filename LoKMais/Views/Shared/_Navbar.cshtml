@@ -1,40 +1,73 @@
-﻿<nav  class="row m-0 justify-content-between navbar navbar-dark bg-dark">
-    <div class="d-inline-flex">
-        <div class="nav-item">
-            <a asp-controller="Home" asp-action="Index" class="nav-link text-white">Início <span class="sr-only">(current)</span></a>
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top border-bottom sticky-top">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto">
+            <div class="nav-item active mt-2 mb-2">
+                <a asp-controller="Home" asp-action="Index" class=" btn-nav nav-link text-white">Início</a>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("ADMINISTRADOR"))
+                {
+                    <div class="dropdown mt-2 mb-2">
+                        <a class="dropdown-toggle btn-nav nav-link drop-nav text-white" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Clientes
+                        </a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item text-white" asp-controller="Usuario" asp-action="CriarUsuario">Cadastro</a>
+                            <a class="dropdown-item text-white" asp-controller="Usuario" asp-action="ListaDeUsuarios">Detalhes</a>
+                            <a class="dropdown-item text-white" href="#">Relátorio</a>
+                        </div>
+                    </div>
+                    <div class="dropdown mt-2 mb-2">
+                        <a class="dropdown-toggle btn-nav nav-link drop-nav text-white" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Veículos
+                        </a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item text-white" asp-controller="Veiculo" asp-action="AdicionarVeiculo" >Cadastro</a>
+                            <a class="dropdown-item text-white" asp-action="Detalhes" asp-controller="Veiculo">Detalhes</a>
+                            <a class="dropdown-item text-white" href="#">Relátorio</a>
+                        </div>
+                    </div>
+                    <div class="nav-item mt-2 mb-2">
+                        <a href="#" class="btn-nav nav-link text-white">Relatório Geral</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="nav-item active mt-2 mb-2">
+                        <a href="#" class=" btn-nav nav-link text-white">Meus Dados</a>
+                    </div>
+                    <div class="nav-item active mt-2 mb-2">
+                        <a href="#" class=" btn-nav nav-link text-white">Veiculos</a>
+                    </div>
+                }
+            }
         </div>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="nav-item">
-                <a asp-controller="Catalogo" asp-action="Index" class="nav-link text-white">Veiculos</a>
-            </div>
-        }
-        @if (User.IsInRole("ADMINISTRADOR"))
-        {
-            <div class="nav-item">
-                <a asp-controller="Autenticador" asp-action="Usuarios" class="nav-link text-white">Usuarios</a>
-            </div>
-        }
-    </div>
-    <div class="d-inline-flex align-items-center">
-        @if (!User.Identity.IsAuthenticated)
-        {
-            <div class="nav-item">
-                <a asp-controller="Autenticador" asp-action="Login" class="btn btn-sm btn-success font-weight-bold">
-                    ENTRAR
-                </a>
-            </div>
-        }
-        else
-        {
-            <div>
-                <p class="text-white m-0">Usuário: <strong> @(User.IsInRole("ADMINISTRADOR") ? "ADM" : "COTAÇÃO") </strong></p>
-            </div>
-            <form asp-controller="Autenticador" asp-action="Logout">
-                <button class="btn btn-sm btn-warning font-weight-bold mx-3">
-                    SAIR
-                </button>
-            </form>
-        }
+        <div class="d-inline-flex align-items-center">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="nav-item">
+                    <a asp-controller="Autenticador" asp-action="Login" class="btn-nav font-weight-bold">
+                        Login
+                        <i class="fa fa-sign-in fa-1x"></i>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <p class="text-white m-0"><i class="fa fa-user fa-1x"></i> @(User.IsInRole("ADMINISTRADOR") ? "Administrador" : User.Identity.Name )</p>
+                </div>
+                <form asp-controller="Autenticador" asp-action="Logout">
+                    <button class="btn btn-sair font-weight-bold mx-3">
+                        Logout
+                        <i class="fa fa-sign-out fa-1x"></i>
+                    </button>
+                </form>
+            }
+        </div>
     </div>
 </nav>

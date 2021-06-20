@@ -42,10 +42,6 @@ namespace LoKMais.Controllers
             return View(veiculo);
         }
         
-        public IActionResult PaginaInicial()
-        {
-            return View();
-        }
 
         public async Task<IActionResult> AbrirArquivo(Guid veiculoId)
         {

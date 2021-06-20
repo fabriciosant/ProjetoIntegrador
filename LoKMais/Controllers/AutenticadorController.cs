@@ -83,7 +83,7 @@ namespace LoKMais.Controllers
                 {
                     _toastNotification.AddSuccessToastMessage("Bem Vindo de volta!");
                     _logger.LogWarning($"Logando Usuario{usuario.UserName}, Email: {usuario.Email}.");
-                    return RedirectToAction("PaginaInicial", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 if (result.IsLockedOut)

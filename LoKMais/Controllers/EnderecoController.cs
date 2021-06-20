@@ -89,6 +89,7 @@ namespace LoKMais.Controllers
             var endereco = await _enderecoRepository.BuscarEnderecoPorIdAsync(enderecoId);
             EnderecoViewModel enderecoModel = new EnderecoViewModel
             {
+                Id = endereco.EnderecoId,
                 Cep = endereco.Cep,
                 Logradouro = endereco.Logradouro,
                 Numero = endereco.Numero,
@@ -117,7 +118,7 @@ namespace LoKMais.Controllers
 
                 await _enderecoRepository.UpdateAsync(endereco);
                 _toastNotification.AddSuccessToastMessage("Alterações salvas!");
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Detalhe");
             }
             _toastNotification.AddErrorToastMessage("Endereço não encontrado!");
             return View(model);

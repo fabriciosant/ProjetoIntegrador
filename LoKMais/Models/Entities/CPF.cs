@@ -56,6 +56,17 @@ namespace LoKMais.Models
                 .Replace(".", string.Empty)
                 .Replace("-", string.Empty);
         }
+        
+        public static string TirarFormatacao(string cpf)
+        {
+            if (cpf.Length == ValorMaxCpf) return cpf;
+
+            return cpf
+                .Replace(".", string.Empty)
+                .Replace("-", string.Empty);
+        }
+
+
 
         public static bool Validar(string cpf)
         {

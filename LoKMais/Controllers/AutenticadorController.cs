@@ -51,6 +51,14 @@ namespace LoKMais.Controllers
         {
             if (ModelState.IsValid)
             {
+                var login = CPF.TirarFormatacao(model.Login);
+
+                if (CPF.Validar(login) == false)
+                {
+                    _toastNotification.AddErrorToastMessage("Cpf inválido!");
+                    return View(model);
+                }
+                
                 var cpf = new CPF(model.Login);
                 cpf.SemFormatacao();
                 var usuario = await _userManager.FindByNameAsync(cpf.Codigo);

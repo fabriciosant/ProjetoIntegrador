@@ -118,7 +118,7 @@ namespace LoKMais.Controllers
 
                 await _enderecoRepository.UpdateAsync(endereco);
                 _toastNotification.AddSuccessToastMessage("Alterações salvas!");
-                return RedirectToAction("Detalhe");
+                return RedirectToAction("Detalhe", new{id = endereco.EnderecoId });
             }
             _toastNotification.AddErrorToastMessage("Endereço não encontrado!");
             return View(model);

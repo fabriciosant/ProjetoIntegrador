@@ -60,7 +60,10 @@ namespace LoKMais.Migrations
                     TipoCombustivel = table.Column<int>(nullable: false),
                     Cor = table.Column<int>(nullable: false),
                     Foto = table.Column<byte[]>(nullable: false),
-                    Descricao = table.Column<string>(nullable: false)
+                    Descricao = table.Column<string>(nullable: false),
+                    DataInicio = table.Column<DateTime>(nullable: false),
+                    DataFinal = table.Column<DateTime>(nullable: false),
+                    ValorDiaria = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {

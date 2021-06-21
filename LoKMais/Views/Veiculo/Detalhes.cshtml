@@ -3,41 +3,98 @@
 @{
     ViewData["Title"] = "Detalhes";
 }
-<div class="card my-4  mx-1">
-    <div class="col-md bg-info">
-        <a asp-controller="Usuario" asp-action="ListaDeUsuarios"><i class="fa fa-arrow-circle-left fa-2x text-info"></i></a>
-    </div>
-    <div class="card-header">
-        <img class="card-img-top" src="/Home/AbrirArquivo?veiculoId=@Html.DisplayFor(model=> model.Id)" />
-    </div>
-    <table class="table  table-borderless border table-striped text-center">
-        <thead>
-            <tr class="row m-0 text-black-50">
-                <th class="col-md-1">Modelo</th>
-                <th class="col-md-2">Marca</th>
-                <th class="col-md-2">Categoria</th>
-                <th class="col-md-1">Placa</th>
-                <th class="col-md-1">Ano</th>
-                <th class="col-md-2">Combustivel</th>
-                <th class="col-md-1">Cor</th>
-                <th class="col-md-2">Descrição</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="row m-0 align-items-center">
-                <td class="col-md-1">@Html.DisplayFor(model => model.Modelo)</td>
-                <td class="col-md-2">@Html.DisplayFor(model => model.Marca)</td>
-                <td class="col-md-2">@Html.DisplayFor(model => model.Categoria)</td>
-                <td class="col-md-1">@Html.DisplayFor(model => model.Placa)</td>
-                <td class="col-md-1">@Html.DisplayFor(model => model.Ano)</td>
-                <td class="col-md-2">@Html.DisplayFor(model => model.TipoCombustivel)</td>
-                <td class="col-md-1">@Html.DisplayFor(model => model.Cor) </td>
-                <td class="col-md-2">@Html.DisplayFor(model => model.Descricao)</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="text-center">
-        <a asp-controller="" asp-action="" class="btn btn-success pl-5 pr-5">Alugar</a>
+<div class="container mt-3">
+    <div class="card" style="width: 58rem;">
+        <div class="card-header bg-info"></div>
+        <img class="card-img-top" src="/Home/AbrirArquivo?veiculoId=@Html.DisplayFor(model => model.Id)" alt="Imagem carro">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row ">
+                        <div class="col-md-6 font-italic font-weight-bold">
+                           @Html.DisplayNameFor(model => model.Modelo):
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DisplayFor(model => model.Modelo)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 font-italic font-weight-bold">
+                            @Html.DisplayNameFor(model => model.Marca):
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DisplayFor(model => model.Marca)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 font-italic font-weight-bold">
+                            @Html.DisplayNameFor(model => model.Categoria):
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DisplayFor(model => model.Categoria)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 font-italic font-weight-bold">
+                            @Html.DisplayNameFor(model => model.Placa):
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DisplayFor(model => model.Placa)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 font-italic font-weight-bold">
+                            @Html.DisplayNameFor(model => model.Ano):
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DisplayFor(model => model.Ano)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 font-italic font-weight-bold">
+                            @Html.DisplayNameFor(model => model.TipoCombustivel):
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DisplayFor(model => model.TipoCombustivel)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 font-italic font-weight-bold">
+                            @Html.DisplayNameFor(model => model.Cor):
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DisplayFor(model => model.Cor)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 font-italic font-weight-bold">
+                            @Html.DisplayNameFor(model => model.Descricao):
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DisplayFor(model => model.Descricao)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md">
+                            <label asp-for="DataInicio">Data Inicio</label>
+                            <input asp-for="DataInicio" type="date" class="form-control" />
+                            <span asp-validation-for="DataInicio"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <label asp-for="DataFinal">Data Final</label>
+                            <input asp-for="DataFinal" type="date" class="form-control" />
+                            <span asp-validation-for="DataFinal"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a href="#" class="btn btn-success px-5 col">Aluguar</a>
+            </div>
+        </div>
     </div>
 </div>
-

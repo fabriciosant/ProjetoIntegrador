@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoKMais.Migrations
 {
     [DbContext(typeof(LkContextDB))]
-    [Migration("20210618002131_Initial")]
+    [Migration("20210621211002_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,6 +145,12 @@ namespace LoKMais.Migrations
                     b.Property<int>("Cor")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DataFinal")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataInicio")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -167,6 +173,9 @@ namespace LoKMais.Migrations
 
                     b.Property<int>("TipoCombustivel")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("ValorDiaria")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

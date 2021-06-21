@@ -50,6 +50,18 @@ namespace LoKMais.Models.ViewModels
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
+        [Required(ErrorMessage = "Insira a data inicial")]
+        [Display(Name = "DataInico")]
+        public DateTime DataInicio { get; set; }
+
+        [Required(ErrorMessage = "Insira a data Final")]
+        [Display(Name = "DataFinal")]
+        public DateTime DataFinal { get; set; }
+
+        [Required(ErrorMessage = "Insira o valor da diaria")]
+        [Display(Name = "Valor")]
+        public decimal ValorDiaria { get; set; }
+
 
         public Veiculo ToModel() => new Veiculo
         {

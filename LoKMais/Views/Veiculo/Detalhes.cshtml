@@ -5,14 +5,18 @@
 }
 <div class="container mt-3">
     <div class="card" style="width: 58rem;">
-        <div class="card-header bg-info"></div>
+        <div class="card-header bg-info">
+            <div class="col-md-1">
+                <a asp-controller="Home" asp-action="Index"><i class="fa fa-arrow-circle-left fa-2x text-white"></i></a>
+            </div>
+        </div>
         <img class="card-img-top" src="/Home/AbrirArquivo?veiculoId=@Html.DisplayFor(model => model.Id)" alt="Imagem carro">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
                     <div class="row ">
                         <div class="col-md-6 font-italic font-weight-bold">
-                           @Html.DisplayNameFor(model => model.Modelo):
+                            @Html.DisplayNameFor(model => model.Modelo):
                         </div>
                         <div class="col-md-6">
                             @Html.DisplayFor(model => model.Modelo)
@@ -75,26 +79,37 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md">
-                            <label asp-for="DataInicio">Data Inicio</label>
-                            <input asp-for="DataInicio" type="date" class="form-control" />
-                            <span asp-validation-for="DataInicio"></span>
+                    @if (User.IsInRole("ADMINISTRADOR"))
+                    {
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md">
+                                <label asp-for="DataInicio">Data Inicio</label>
+                                <input asp-for="DataInicio" type="date" class="form-control" />
+                                <span asp-validation-for="DataInicio"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md">
-                            <label asp-for="DataFinal">Data Final</label>
-                            <input asp-for="DataFinal" type="date" class="form-control" />
-                            <span asp-validation-for="DataFinal"></span>
+                        <div class="row">
+                            <div class="col-md">
+                                <label asp-for="DataFinal">Data Final</label>
+                                <input asp-for="DataFinal" type="date" class="form-control" />
+                                <span asp-validation-for="DataFinal"></span>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
-            <div class="text-center mt-3">
-                <a href="#" class="btn btn-success px-5 col">Aluguar</a>
-            </div>
+            @if (User.IsInRole("ADMINISTRADOR")) { }
+            else
+            {
+                <div class="text-center mt-3">
+                    <a asp-action="Alugar" asp-controller="Veiculo" class="btn btn-success px-5 col">Aluguar</a>
+                </div>
+            }
         </div>
     </div>
 </div>

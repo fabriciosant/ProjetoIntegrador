@@ -136,5 +136,14 @@ namespace LoKMais.Controllers
             return RedirectToAction("ListaDeVeiculos");
         }
         #endregion
+
+        #region Alugar
+        [HttpPost]
+        public async Task<IActionResult> Alugar(VeiculoViewModel model)
+        {
+            
+            return View();
+        }
+        #endregion
     }
 }

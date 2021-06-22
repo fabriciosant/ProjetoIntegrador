@@ -89,6 +89,7 @@ namespace LoKMais.Controllers
                 veiculo.TipoCombustivel = model.TipoCombustivel;
                 veiculo.Cor = model.Cor;
                 veiculo.Descricao = model.Descricao;
+                veiculo.ValorDiaria = model.ValorDiaria;
 
                 await _veiculoRepository.UpdateAsync(veiculo);
                 _toastNotification.AddSuccessToastMessage("Alterações salvas!");
@@ -141,7 +142,37 @@ namespace LoKMais.Controllers
         [HttpPost]
         public async Task<IActionResult> Alugar(VeiculoViewModel model)
         {
-            
+            if (ModelState.IsValid)
+            {
+                var veiculo = await _veiculoRepository.BuscarPorIdAsync(model.Id);
+                var dataInicio = model.DataInicio;
+                var dataFinal = model.DataFinal;
+                var valorDiaria = model.ValorDiaria;
+
+                TimeSpan date = Convert.ToDateTime(dataInicio) - Convert.ToDateTime(dataFinal);
+                int totalDias = date.Days;
+
+                var resultadoDiarias = totalDias * valorDiaria;
+
+                if (veiculo != null)
+                {
+                    veiculo.Modelo = model.Modelo;
+                    veiculo.Marca = model.Marca;
+                    veiculo.Categoria = model.Categoria;
+                    veiculo.Placa = model.Placa;
+                    veiculo.Ano = model.Ano;
+                    veiculo.TipoCombustivel = model.TipoCombustivel;
+                    veiculo.Cor = model.Cor;
+                    veiculo.Descricao = model.Descricao;
+                    veiculo.ValorDiaria = model.ValorDiaria;
+                    veiculo.DataInicio = model.DataInicio;
+                    veiculo.DataFinal = model.DataFinal;
+
+                    await _veiculoRepository.UpdateAsync(veiculo);
+                }
+
+
+            }
             return View();
         }
         #endregion

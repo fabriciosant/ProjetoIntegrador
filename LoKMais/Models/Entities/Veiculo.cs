@@ -57,5 +57,8 @@ namespace LoKMais.Models.Entities
         [Required(ErrorMessage = "Insira o Valor da Diaria")]
         [Display(Name = "Valor")]
         public decimal ValorDiaria { get; set; }
+
+        public bool Alugado { get; set; }
+
     }
 }

@@ -45,5 +45,20 @@ namespace LoKMais.Models.Entities
         [Required]
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
+
+        [Required(ErrorMessage = "Insira a data Inicial")]
+        [Display(Name = "DataInico")]
+        public DateTime DataInicio { get; set; }
+
+        [Required(ErrorMessage = "Insira a data Final")]
+        [Display(Name = "DataFinal")]
+        public DateTime DataFinal { get; set; }
+
+        [Required(ErrorMessage = "Insira o Valor da Diaria")]
+        [Display(Name = "Valor")]
+        public decimal ValorDiaria { get; set; }
+
+        public bool Alugado { get; set; }
+
     }
 }

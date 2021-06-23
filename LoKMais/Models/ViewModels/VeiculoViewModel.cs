@@ -50,6 +50,20 @@ namespace LoKMais.Models.ViewModels
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
+        [Required(ErrorMessage = "Insira a data inicial")]
+        [Display(Name = "DataInico")]
+        public DateTime DataInicio { get; set; }
+
+        [Required(ErrorMessage = "Insira a data Final")]
+        [Display(Name = "DataFinal")]
+        public DateTime DataFinal { get; set; }
+
+        [Required(ErrorMessage = "Insira o valor da diaria")]
+        [Display(Name = "Valor")]
+        public decimal ValorDiaria { get; set; }
+
+        public decimal TotalDiarias { get; set; }
+
 
         public Veiculo ToModel() => new Veiculo
         {
@@ -61,7 +75,10 @@ namespace LoKMais.Models.ViewModels
             TipoCombustivel = TipoCombustivel,
             Cor = Cor,
             Foto = Foto.ConvertToBytes(),
-            Descricao = Descricao
+            Descricao = Descricao,
+            DataInicio = DataInicio,
+            DataFinal = DataFinal,
+            ValorDiaria = ValorDiaria
         };
 
         public VeiculoViewModel ToViewModel(Veiculo veiculo) => new VeiculoViewModel
@@ -74,7 +91,10 @@ namespace LoKMais.Models.ViewModels
             TipoCombustivel = veiculo.TipoCombustivel,
             Cor = veiculo.Cor,
             Foto = veiculo.ConverterByteToIFormFile(),
-            Descricao =veiculo.Descricao
+            Descricao =veiculo.Descricao,
+            DataInicio = veiculo.DataInicio,
+            DataFinal = veiculo.DataFinal,
+            ValorDiaria = veiculo.ValorDiaria
         };
     }
 }

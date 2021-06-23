@@ -134,6 +134,9 @@ namespace LoKMais.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Alugado")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Ano")
                         .HasColumnType("int");
 
@@ -142,6 +145,12 @@ namespace LoKMais.Migrations
 
                     b.Property<int>("Cor")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DataFinal")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataInicio")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -165,6 +174,9 @@ namespace LoKMais.Migrations
 
                     b.Property<int>("TipoCombustivel")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("ValorDiaria")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

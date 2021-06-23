@@ -63,7 +63,8 @@ namespace LoKMais.Migrations
                     Descricao = table.Column<string>(nullable: false),
                     DataInicio = table.Column<DateTime>(nullable: false),
                     DataFinal = table.Column<DateTime>(nullable: false),
-                    ValorDiaria = table.Column<decimal>(nullable: false)
+                    ValorDiaria = table.Column<decimal>(nullable: false),
+                    Alugado = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -134,6 +134,9 @@ namespace LoKMais.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Alugado")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Ano")
                         .HasColumnType("int");
 

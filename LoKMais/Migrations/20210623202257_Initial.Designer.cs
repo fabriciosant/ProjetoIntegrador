@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoKMais.Migrations
 {
     [DbContext(typeof(LkContextDB))]
-    [Migration("20210621211002_Initial")]
+    [Migration("20210623202257_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,6 +135,9 @@ namespace LoKMais.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Alugado")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Ano")
                         .HasColumnType("int");

@@ -18,7 +18,6 @@
                         <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item text-white" asp-controller="Usuario" asp-action="CriarUsuario">Cadastro</a>
                             <a class="dropdown-item text-white" asp-controller="Usuario" asp-action="ListaDeUsuarios">Detalhes</a>
-                            <a class="dropdown-item text-white" href="#">Relátorio</a>
                         </div>
                     </div>
                     <div class="dropdown mt-2 mb-2">
@@ -26,9 +25,8 @@
                             Veículos
                         </a>
                         <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item text-white" asp-controller="Veiculo" asp-action="AdicionarVeiculo" >Cadastro</a>
+                            <a class="dropdown-item text-white" asp-controller="Veiculo" asp-action="AdicionarVeiculo">Cadastro</a>
                             <a class="dropdown-item text-white" asp-action="ListaDeVeiculos" asp-controller="Veiculo">Detalhes</a>
-                            <a class="dropdown-item text-white" href="#">Relátorio</a>
                         </div>
                     </div>
                     <div class="nav-item mt-2 mb-2">
@@ -38,10 +36,7 @@
                 else
                 {
                     <div class="nav-item active mt-2 mb-2">
-                        <a href="#" class=" btn-nav nav-link text-white">Meus Dados</a>
-                    </div>
-                    <div class="nav-item active mt-2 mb-2">
-                        <a href="#" class=" btn-nav nav-link text-white">Veiculos</a>
+                        <a asp-controller="Usuario" asp-action="DadosCliente" class=" btn-nav nav-link text-white">Meus Dados</a>
                     </div>
                 }
             }

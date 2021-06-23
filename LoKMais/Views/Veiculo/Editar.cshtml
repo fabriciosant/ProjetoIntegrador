@@ -3,106 +3,114 @@
 @{
     ViewData["Title"] = "AdicionarVeiculo";
 }
-<div class="container my-4">
-    <div class="card">
-        <div class="card-header text-center bg-info">
-            <h2 class="text-white font-italic">Editar</h2>
-        </div>
-        <div class="col-md-1">
-            <a asp-controller="Veiculo" asp-action="ListaDeVeiculos"><i class="fa fa-arrow-circle-left fa-2x text-info"></i></a>
-        </div>
-        <div class="card-body">
-            <form asp-action="Editar" asp-controller="Veiculo" enctype="multipart/form-data">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="ui-form-group">
-                            <label asp-for="Modelo" class="ui-form-group-label"></label>
-                            <input asp-for="Modelo" class="ui-form-group-input" />
-                            <span asp-validation-for="Modelo" class="text-danger"></span>
+@if (User.Identity.IsAuthenticated)
+{
+
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-header text-center bg-info">
+                <h2 class="text-white font-italic">Editar</h2>
+            </div>
+            <div class="col-md-1">
+                <a asp-controller="Veiculo" asp-action="ListaDeVeiculos"><i class="fa fa-arrow-circle-left fa-2x text-info"></i></a>
+            </div>
+            <div class="card-body">
+                <form asp-action="Editar" asp-controller="Veiculo" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="ui-form-group">
+                                <label asp-for="Modelo" class="ui-form-group-label"></label>
+                                <input asp-for="Modelo" class="ui-form-group-input" />
+                                <span asp-validation-for="Modelo" class="text-danger"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="ui-form-group">
-                            <label asp-for="Marca" class="ui-form-group-label"></label>
-                            <input asp-for="Marca" class="ui-form-group-input" />
-                            <span asp-validation-for="Marca" class="text-danger"></span>
+                        <div class="col-md-4">
+                            <div class="ui-form-group">
+                                <label asp-for="Marca" class="ui-form-group-label"></label>
+                                <input asp-for="Marca" class="ui-form-group-input" />
+                                <span asp-validation-for="Marca" class="text-danger"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="ui-form-group">
-                            <label asp-for="Categoria" class="ui-form-group-label"></label>
-                            <select asp-for="Categoria" asp-items="@Html.GetEnumSelectList<ECategoria>()" class="ui-form-group-select">
-                                <option selected>Selecione a categoria</option>
-                            </select>
-                            <span asp-validation-for="Categoria" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="ui-form-group">
-                            <label asp-for="Placa" class="ui-form-group-label"></label>
-                            <input asp-for="Placa" class="ui-form-group-input" />
-                            <span asp-validation-for="Placa" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="ui-form-group">
-                            <label asp-for="Ano" class="ui-form-group-label"></label>
-                            <select asp-for="Ano" asp-items="@Html.GetEnumSelectList<EAno>()" class="ui-form-group-select">
-                                <option selected>Selecione o ano</option>
-                            </select>
-                            <span asp-validation-for="Ano" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="ui-form-group">
-                            <label asp-for="TipoCombustivel" class="ui-form-group-label"></label>
-                            <select asp-for="TipoCombustivel" asp-items="@Html.GetEnumSelectList<ETipoCombustivel>()" class="ui-form-group-select">
-                                <option selected>Selecione o combustivel</option>
-                            </select>
-                            <span asp-validation-for="TipoCombustivel" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="ui-form-group">
-                            <label asp-for="Cor" class="ui-form-group-label"></label>
-                            <select asp-for="Cor" asp-items="@Html.GetEnumSelectList<ECor>()" class="ui-form-group-select">
-                                <option selected>Selecione a cor</option>
-                            </select>
-                            <span asp-validation-for="Cor" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="ui-form-group">
-                            <div class="input-group mb-3">
-                                <div class="custom-file">
-                                    <input asp-for="Foto" type="file" class="custom-file-input" id="inputGroupFile01">
-                                    <label asp-for="Foto" class="custom-file-label" for="inputGroupFile01">Carregar Arquivo de imagem</label>
-                                </div>
-                                <span asp-validation-for="Foto" class="text-danger"></span>
+                        <div class="col-md-4">
+                            <div class="ui-form-group">
+                                <label asp-for="Categoria" class="ui-form-group-label"></label>
+                                <select asp-for="Categoria" asp-items="@Html.GetEnumSelectList<ECategoria>()" class="ui-form-group-select">
+                                    <option selected>Selecione a categoria</option>
+                                </select>
+                                <span asp-validation-for="Categoria" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="ui-form-group">
-                    <label asp-for="Descricao" class="ui-form-group-label"></label>
-                    <textarea asp-for="Descricao" class="ui-form-group-input"></textarea>
-                    <span asp-validation-for="Descricao" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Finalizar Alterações" class="btn btn-success col" />
-                </div>
-            </form>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="ui-form-group">
+                                <label asp-for="Placa" class="ui-form-group-label"></label>
+                                <input asp-for="Placa" class="ui-form-group-input" />
+                                <span asp-validation-for="Placa" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="ui-form-group">
+                                <label asp-for="Ano" class="ui-form-group-label"></label>
+                                <select asp-for="Ano" asp-items="@Html.GetEnumSelectList<EAno>()" class="ui-form-group-select">
+                                    <option selected>Selecione o ano</option>
+                                </select>
+                                <span asp-validation-for="Ano" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="ui-form-group">
+                                <label asp-for="TipoCombustivel" class="ui-form-group-label"></label>
+                                <select asp-for="TipoCombustivel" asp-items="@Html.GetEnumSelectList<ETipoCombustivel>()" class="ui-form-group-select">
+                                    <option selected>Selecione o combustivel</option>
+                                </select>
+                                <span asp-validation-for="TipoCombustivel" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="ui-form-group">
+                                <label asp-for="Cor" class="ui-form-group-label"></label>
+                                <select asp-for="Cor" asp-items="@Html.GetEnumSelectList<ECor>()" class="ui-form-group-select">
+                                    <option selected>Selecione a cor</option>
+                                </select>
+                                <span asp-validation-for="Cor" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="ui-form-group">
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                        <input asp-for="Foto" type="file" class="custom-file-input" id="inputGroupFile01">
+                                        <label asp-for="Foto" class="custom-file-label" for="inputGroupFile01">Carregar Arquivo de imagem</label>
+                                    </div>
+                                    <span asp-validation-for="Foto" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-form-group">
+                        <label asp-for="Descricao" class="ui-form-group-label"></label>
+                        <textarea asp-for="Descricao" class="ui-form-group-input"></textarea>
+                        <span asp-validation-for="Descricao" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Finalizar Alterações" class="btn btn-success col" />
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-
-
-
-
-
-
+}
+else
+{
+    <header>
+        <div class="alert alert-danger text-center" role="alert">
+            <h4 class="color-danger"><i class="fa fa-exclamation"></i> @ViewData["Title"]</h4>
+            <p>Você nao tem acesso para esse recurso.</p>
+            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Voltar</a>
+        </div>
+    </header>
+}

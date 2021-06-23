@@ -3,58 +3,72 @@
 @{
     ViewData["Title"] = "Detalhe";
 }
-<div class="card my-4  mx-1">
-    <div class="card-header text-center bg-info">
-        <h2 class="text-white font-italic">Detalhes Endereço</h2>
-    </div>
-    <div class="col-md-1">
-        <a asp-controller="Usuario" asp-action="ListaDeUsuarios"><i class="fa fa-arrow-circle-left fa-2x text-info"></i></a>
-    </div>
-    <table class="table  table-borderless border table-striped text-center">
-        <thead>
-            <tr class="row m-0 text-black-50">
-                <th class="col-md-1">Cep</th>
-                <th class="col-md-2">Logradouro</th>
-                <th class="col-md-1">Número</th>
-                <th class="col-md-2">Bairro</th>
-                <th class="col-md-1">Cidade</th>
-                <th class="col-md-1">UF</th>
-                <th class="col-md-2">Complemento</th>
-                <th class="col-md-2">Acões</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="row m-0 align-items-center">
-                <td class="col-md-1">@Html.DisplayFor(model => model.Cep)</td>
-                <td class="col-md-2">@Html.DisplayFor(model => model.Logradouro)</td>
-                <td class="col-md-1">@Html.DisplayFor(model => model.Numero)</td>
-                <td class="col-md-2">@Html.DisplayFor(model => model.Bairro)</td>
-                <td class="col-md-1">@Html.DisplayFor(model => model.Cidade)</td>
-                <td class="col-md-1">@Html.DisplayFor(model => model.Uf)</td>
-                <td class="col-md-2">@Html.DisplayFor(model => model.Complemento)</td>
-                <td class="col-md-2">
-                    <a asp-action="Editar" asp-controller="Endereco" asp-route-enderecoId="@Model.EnderecoId" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>
-                    <button data-toggle="modal" data-target="#exampleModal" class="btn btn-danger">Deletar <i class="fa fa-trash fa-1"></i></button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+@if (User.Identity.IsAuthenticated)
+{
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-info">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Deletar Endereço</h5>
-            </div>
-            <div class="modal-body">
-                <p class="text-muted text-center">Deseja realmente deletar este endereço?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <a asp-action="DeletarEndereco" asp-controller="Endereco" asp-route-id="@Model.EnderecoId" class="btn btn-success">Confirmar</a>
+    <div class="card my-4  mx-1">
+        <div class="card-header text-center bg-info">
+            <h2 class="text-white font-italic">Detalhes Endereço</h2>
+        </div>
+        <div class="col-md-1">
+            <a asp-controller="Usuario" asp-action="ListaDeUsuarios"><i class="fa fa-arrow-circle-left fa-2x text-info"></i></a>
+        </div>
+        <table class="table  table-borderless border table-striped text-center">
+            <thead>
+                <tr class="row m-0 text-black-50">
+                    <th class="col-md-1">Cep</th>
+                    <th class="col-md-2">Logradouro</th>
+                    <th class="col-md-1">Número</th>
+                    <th class="col-md-2">Bairro</th>
+                    <th class="col-md-1">Cidade</th>
+                    <th class="col-md-1">UF</th>
+                    <th class="col-md-2">Complemento</th>
+                    <th class="col-md-2">Acões</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row m-0 align-items-center">
+                    <td class="col-md-1">@Html.DisplayFor(model => model.Cep)</td>
+                    <td class="col-md-2">@Html.DisplayFor(model => model.Logradouro)</td>
+                    <td class="col-md-1">@Html.DisplayFor(model => model.Numero)</td>
+                    <td class="col-md-2">@Html.DisplayFor(model => model.Bairro)</td>
+                    <td class="col-md-1">@Html.DisplayFor(model => model.Cidade)</td>
+                    <td class="col-md-1">@Html.DisplayFor(model => model.Uf)</td>
+                    <td class="col-md-2">@Html.DisplayFor(model => model.Complemento)</td>
+                    <td class="col-md-2">
+                        <a asp-action="Editar" asp-controller="Endereco" asp-route-enderecoId="@Model.EnderecoId" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>
+                        <button data-toggle="modal" data-target="#exampleModal" class="btn btn-danger">Deletar <i class="fa fa-trash fa-1"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Deletar Endereço</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted text-center">Deseja realmente deletar este endereço?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a asp-action="DeletarEndereco" asp-controller="Endereco" asp-route-id="@Model.EnderecoId" class="btn btn-success">Confirmar</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <header>
+        <div class="alert alert-danger text-center" role="alert">
+            <h4 class="color-danger"><i class="fa fa-exclamation"></i> @ViewData["Title"]</h4>
+            <p>Você nao tem acesso para esse recurso.</p>
+            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Voltar</a>
+        </div>
+    </header>
+}

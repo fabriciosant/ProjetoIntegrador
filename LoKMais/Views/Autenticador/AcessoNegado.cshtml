@@ -3,12 +3,9 @@
     Layout = "Layout";
 }
 <header>
-    <div class="card card-danger">
-        <div class="cad-body overflow-hidden text-center">
-            <span class="ms-icon ms-icon-circle ms-icon-xxlg mb-4 color-danger"><i class="fa fa-exclamation"></i></span>
-            <h4 class="color-danger">@ViewData["Title"]</h4>
-            <p>Você nao tem acesso para esse recurso.</p>
-            <a asp-action="Index" asp-controller="Home" class="btn btn-raised btn info"><i class="zmdi zmdi-clise"></i>Voltar</a>
-        </div>
+    <div class="alert alert-danger text-center" role="alert">
+        <h4 class="color-danger"><i class="fa fa-exclamation"></i> @ViewData["Title"]</h4>
+        <p>Você nao tem acesso para esse recurso.</p>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Voltar</a>
     </div>
 </header>

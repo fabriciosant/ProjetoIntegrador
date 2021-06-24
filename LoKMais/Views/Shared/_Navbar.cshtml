@@ -29,14 +29,11 @@
                             <a class="dropdown-item text-white" asp-action="ListaDeVeiculos" asp-controller="Veiculo">Detalhes</a>
                         </div>
                     </div>
-                    <div class="nav-item mt-2 mb-2">
-                        <a href="#" class="btn-nav nav-link text-white">Relatório Geral</a>
-                    </div>
                 }
                 else
                 {
                     <div class="nav-item active mt-2 mb-2">
-                        <a asp-controller="Usuario" asp-action="DadosCliente" class=" btn-nav nav-link text-white">Meus Dados</a>
+                        <a asp-controller="Usuario" asp-action="MeusDados" class=" btn-nav nav-link text-white">Meus Dados</a>
                     </div>
                 }
             }

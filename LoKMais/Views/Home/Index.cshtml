@@ -22,8 +22,19 @@
                         <div class="card m-1" style="width: 20rem;">
                             <img class="card-img-top" src="/Home/AbrirArquivo?veiculoId=@veiculo.Id" alt="Imagem carro" height="80%">
                             <div class="card-body text-center">
-                                <h5 class="card-title">@veiculo.Modelo</h5>
-                                <p class="card-text">@veiculo.Marca</p>
+                                <div class="row">
+                                    <div class="col-md-6 text-right">
+                                        <h5 class="card-text text-black-50">@veiculo.Marca</h5>
+                                    </div>
+                                    <div class="col-md-6 text-left">
+                                        <p class="card-title text-black-50">@veiculo.Modelo</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md">
+                                        <p class="card-title text-black-50"><strong>Valor Diaria:</strong> @veiculo.ValorDiaria</p>
+                                    </div>
+                                </div>
                                 <a asp-controller="Veiculo" asp-action="Detalhes" asp-route-id="@veiculo.Id" class="btn btn-primary text-white">Detalhes</a>
                             </div>
                         </div>

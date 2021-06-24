@@ -3,111 +3,103 @@
 @{
     ViewData["Title"] = "Detalhes";
 }
-@if (User.Identity.IsAuthenticated)
-{
-
-    <div class="container mt-3">
-        <div class="card">
-            <div class="card-header bg-info">
-                <div class="col-md-1">
-                    <a asp-controller="Home" asp-action="Index"><i class="fa fa-arrow-circle-left fa-2x text-white"></i></a>
+<div class="container mt-3">
+    <div class="card">
+        <div class="card-header bg-info">
+            <div class="col-md-1">
+                <a asp-controller="Home" asp-action="Index"><i class="fa fa-arrow-circle-left fa-2x text-white"></i></a>
+            </div>
+        </div>
+        <img class="card-img-top" src="/Home/AbrirArquivo?veiculoId=@Html.DisplayFor(model => model.Id)" alt="Imagem carro">
+        <div class="card-body">
+            <div class="row text-center">
+                <div class="col-md-1 font-italic font-weight-bold px-0">
+                    @Html.DisplayNameFor(model => model.Modelo)
+                </div>
+                <div class="col-md-1 font-italic font-weight-bold px-0">
+                    @Html.DisplayNameFor(model => model.Marca)
+                </div>
+                <div class="col-md-2 font-italic font-weight-bold px-0">
+                    @Html.DisplayNameFor(model => model.Categoria)
+                </div>
+                <div class="col-md-1 font-italic font-weight-bold px-0">
+                    @Html.DisplayNameFor(model => model.Placa)
+                </div>
+                <div class="col-md-1 font-italic font-weight-bold px-0">
+                    @Html.DisplayNameFor(model => model.Ano)
+                </div>
+                <div class="col-md-2 font-italic font-weight-bold px-0">
+                    Combustivel
+                </div>
+                <div class="col-md-1 font-italic font-weight-bold px-0">
+                    @Html.DisplayNameFor(model => model.Cor)
+                </div>
+                <div class="col-md-2 font-italic font-weight-bold px-0">
+                    @Html.DisplayNameFor(model => model.Descricao)
+                </div>
+                <div class="col-md-1 font-italic font-weight-bold px-0">
+                    @Html.DisplayNameFor(model => model.ValorDiaria)
                 </div>
             </div>
-            <img class="card-img-top" src="/Home/AbrirArquivo?veiculoId=@Html.DisplayFor(model => model.Id)" alt="Imagem carro">
-            <div class="card-body">
-                <div class="row text-center">
-                    <div class="col-md-1 font-italic font-weight-bold px-0">
-                        @Html.DisplayNameFor(model => model.Modelo)
-                    </div>
-                    <div class="col-md-2 font-italic font-weight-bold px-0">
-                        @Html.DisplayNameFor(model => model.Marca)
-                    </div>
-                    <div class="col-md-2 font-italic font-weight-bold px-0">
-                        @Html.DisplayNameFor(model => model.Categoria)
-                    </div>
-                    <div class="col-md-1 font-italic font-weight-bold px-0">
-                        @Html.DisplayNameFor(model => model.Placa)
-                    </div>
-                    <div class="col-md-1 font-italic font-weight-bold px-0">
-                        @Html.DisplayNameFor(model => model.Ano)
-                    </div>
-                    <div class="col-md-2 font-italic font-weight-bold px-0">
-                        Combustivel
-                    </div>
-                    <div class="col-md-1 font-italic font-weight-bold px-0">
-                        @Html.DisplayNameFor(model => model.Cor)
-                    </div>
-                    <div class="col-md-2 font-italic font-weight-bold px-0">
-                        @Html.DisplayNameFor(model => model.Descricao)
-                    </div>
+            <div class="row text-center">
+                <div class="col-md-1 text-black-50 px-0">
+                    @Html.DisplayFor(model => model.Modelo)
                 </div>
-                <div class="row text-center">
-                    <div class="col-md-1 text-black-50 px-0">
-                        @Html.DisplayFor(model => model.Modelo)
-                    </div>
-                    <div class="col-md-2 text-black-50 px-0">
-                        @Html.DisplayFor(model => model.Marca)
-                    </div>
-                    <div class="col-md-2 text-black-50 px-0">
-                        @Html.DisplayFor(model => model.Categoria)
-                    </div>
-                    <div class="col-md-1 text-black-50 px-0">
-                        @Html.DisplayFor(model => model.Placa)
-                    </div>
-                    <div class="col-md-1 text-black-50 px-0">
-                        @Html.DisplayFor(model => model.Ano)
-                    </div>
-                    <div class="col-md-2 text-black-50 px-0">
-                        @Html.DisplayFor(model => model.TipoCombustivel)
-                    </div>
-                    <div class="col-md-1 text-black-50 px-0">
-                        @Html.DisplayFor(model => model.Cor)
-                    </div>
-                    <div class="col-md-2 text-black-50 px-0">
-                        @Html.DisplayFor(model => model.Descricao)
-                    </div>
+                <div class="col-md-1 text-black-50 px-0">
+                    @Html.DisplayFor(model => model.Marca)
                 </div>
-                @if (User.Identity.IsAuthenticated)
+                <div class="col-md-2 text-black-50 px-0">
+                    @Html.DisplayFor(model => model.Categoria)
+                </div>
+                <div class="col-md-1 text-black-50 px-0">
+                    @Html.DisplayFor(model => model.Placa)
+                </div>
+                <div class="col-md-1 text-black-50 px-0">
+                    @Html.DisplayFor(model => model.Ano)
+                </div>
+                <div class="col-md-2 text-black-50 px-0">
+                    @Html.DisplayFor(model => model.TipoCombustivel)
+                </div>
+                <div class="col-md-1 text-black-50 px-0">
+                    @Html.DisplayFor(model => model.Cor)
+                </div>
+                <div class="col-md-2 text-black-50 px-0">
+                    @Html.DisplayFor(model => model.Descricao)
+                </div>
+                <div class="col-md-1 text-black-50 px-0">
+                    @Html.DisplayFor(model => model.ValorDiaria)
+                </div>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("ADMINISTRADOR"))
                 {
-                    @if (User.IsInRole("ADMINISTRADOR"))
-                    {
-                    }
-                    else
-                    {
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label asp-for="DataInicio">Data Inicio</label>
-                                <input asp-for="DataInicio" type="date" class="form-control" />
-                                <span asp-validation-for="DataInicio"></span>
-                            </div>
-                            <div class="col-md-6">
-                                <label asp-for="DataFinal">Data Final</label>
-                                <input asp-for="DataFinal" type="date" class="form-control" />
-                                <span asp-validation-for="DataFinal"></span>
-                            </div>
-                        </div>
-                        <div class="text-center mt-3">
-                            <a asp-action="Aluguel" asp-controller="Veiculo" class="btn btn-success px-5 col">Aluguar</a>
-                        </div>
-                    }
                 }
                 else
                 {
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="DataInicio">Data Inicio</label>
+                            <input asp-for="DataInicio" type="date" class="form-control" />
+                            <span asp-validation-for="DataInicio"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="DataFinal">Data Final</label>
+                            <input asp-for="DataFinal" type="date" class="form-control" />
+                            <span asp-validation-for="DataFinal"></span>
+                        </div>
+                    </div>
                     <div class="text-center mt-3">
-                        <a asp-action="Login" asp-controller="Autenticador" class="btn btn-success px-5 col">Aluguar</a>
+                        <a asp-action="Aluguel" asp-controller="Veiculo" class="btn btn-success px-5 col">Aluguar</a>
                     </div>
                 }
-            </div>
+            }
+            else
+            {
+                <div class="text-center mt-3">
+                    <a asp-action="Login" asp-controller="Autenticador" class="btn btn-success px-5 col">Aluguar</a>
+                </div>
+            }
         </div>
     </div>
-}
-else
-{
-    <header>
-        <div class="alert alert-danger text-center" role="alert">
-            <h4 class="color-danger"><i class="fa fa-exclamation"></i> @ViewData["Title"]</h4>
-            <p>Você nao tem acesso para esse recurso.</p>
-            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Voltar</a>
-        </div>
-    </header>
-}
+</div>

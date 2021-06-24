@@ -161,5 +161,12 @@ namespace LoKMais.Controllers
             return RedirectToAction("ListaDeUsuarios");
         }
         #endregion
+
+        #region DadosCliente
+        public IActionResult MeusDados()
+        {
+            return View();
+        }
+        #endregion
     }
 }

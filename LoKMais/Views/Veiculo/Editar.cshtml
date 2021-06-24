@@ -21,7 +21,7 @@
                         <div class="col-md-4">
                             <div class="ui-form-group">
                                 <label asp-for="Modelo" class="ui-form-group-label"></label>
-                                <input asp-for="Modelo" class="ui-form-group-input" />
+                                <input asp-for="Modelo" class="ui-form-group-input" id="modelo" />
                                 <span asp-validation-for="Modelo" class="text-danger"></span>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                         <div class="col-md-4">
                             <div class="ui-form-group">
                                 <label asp-for="Placa" class="ui-form-group-label"></label>
-                                <input asp-for="Placa" class="ui-form-group-input" />
+                                <input asp-for="Placa" class="ui-form-group-input" id="placa" />
                                 <span asp-validation-for="Placa" class="text-danger"></span>
                             </div>
                         </div>
@@ -70,7 +70,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-2">
+                            <div class="ui-form-group">
+                                <label asp-for="ValorDiaria" class="ui-form-group-label">Valor Diaria</label>
+                                <input asp-for="ValorDiaria" class="ui-form-group-input" maxlength="5" id="decimal" />
+                                <span asp-validation-for="ValorDiaria" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
                             <div class="ui-form-group">
                                 <label asp-for="Cor" class="ui-form-group-label"></label>
                                 <select asp-for="Cor" asp-items="@Html.GetEnumSelectList<ECor>()" class="ui-form-group-select">
@@ -79,7 +86,7 @@
                                 <span asp-validation-for="Cor" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="ui-form-group">
                                 <div class="input-group mb-3">
                                     <div class="custom-file">
@@ -103,6 +110,18 @@
             </div>
         </div>
     </div>
+    @section Scripts{
+        <script src="~/js/meiomask.js"></script>
+        <script>
+            $('#modelo').on('keyup', (ev) => {
+                $('#modelo').val($('#modelo').val().toUpperCase());
+            })
+            $('#placa').on('keyup', (ev) => {
+                $('#placa').val($('#placa').val().toUpperCase());
+            });
+            $('#decimal').setMask('999,99', { reverse: true });
+        </script>
+    }
 }
 else
 {

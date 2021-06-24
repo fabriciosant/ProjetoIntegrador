@@ -26,9 +26,10 @@
                     <th class="col-md-1">Categoria</th>
                     <th class="col-md-1">Placa</th>
                     <th class="col-md-1">Ano</th>
-                    <th class="col-md-2">Combustivel</th>
+                    <th class="col-md-1 px-0">Combustível</th>
                     <th class="col-md-1">Cor</th>
-                    <th class="col-md-2">Descricao</th>
+                    <th class="col-md-2">Descrição</th>
+                    <th class="col-md-1">Diaria</th>
                     <th class="col-md-2">Acões</th>
                 </tr>
             </thead>
@@ -51,9 +52,10 @@
                             <td class="col-md-1">@veiculo.Categoria</td>
                             <td class="col-md-1">@veiculo.Placa</td>
                             <td class="col-md-1">@Html.DisplayFor(modelveiculo => veiculo.Ano)</td>
-                            <td class="col-md-2">@veiculo.TipoCombustivel</td>
+                            <td class="col-md-1">@veiculo.TipoCombustivel</td>
                             <td class="col-md-1">@veiculo.Cor</td>
                             <td class="col-md-2">@veiculo.Descricao</td>
+                            <td class="col-md-1">@veiculo.ValorDiaria</td>
                             <td class="col-md-2">
                                 <a asp-action="Editar" asp-controller="Veiculo" asp-route-id="@veiculo.Id" class="btn btn-info">Editar <i class="fa fa-edit fa-1"></i></a>
                                 <a class="btn btn-danger text-white" data-toggle="modal" data-target="#confirmarDelete">Deletar <i class="fa fa-trash fa-1"></i></a>

@@ -69,6 +69,7 @@ namespace LoKMais.Controllers
                 Ano = veiculo.Ano,
                 TipoCombustivel = veiculo.TipoCombustivel,
                 Cor = veiculo.Cor,
+                ValorDiaria = veiculo.ValorDiaria,
                 Descricao = veiculo.Descricao
             };
             return View(veiculoModel);

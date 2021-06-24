@@ -89,22 +89,33 @@ namespace LoKMais.Controllers
                 veiculo.TipoCombustivel = model.TipoCombustivel;
                 veiculo.Cor = model.Cor;
                 veiculo.Descricao = model.Descricao;
+                veiculo.ValorDiaria = model.ValorDiaria;
 
                 await _veiculoRepository.UpdateAsync(veiculo);
                 _toastNotification.AddSuccessToastMessage("Alterações salvas!");
-                return RedirectToAction("Detalhes");
+                return RedirectToAction("ListaDeVeiculos");
             }
             _toastNotification.AddErrorToastMessage("Veiculo não encontrado!");
             return View(model);
         }
         #endregion
 
-        #region Detalhes Veiculo
+        #region Lista de Veiculos
         [HttpGet]
-        public async Task<IActionResult> Detalhes()
+        public async Task<IActionResult> ListaDeVeiculos()
         {
             var veiculoResult = await _veiculoRepository.BuscarTodosAsync();
             return View(veiculoResult);
+        }
+        #endregion
+
+        #region Detalhes veiculos
+
+        [HttpGet]
+        public async Task<IActionResult> Detalhes(Guid id)
+        {
+            var veiculoDetalhe = await _veiculoRepository.BuscarPorIdAsync(id);
+            return View(veiculoDetalhe);
         }
         #endregion
 
@@ -123,7 +134,15 @@ namespace LoKMais.Controllers
                 _toastNotification.AddErrorToastMessage("Erro ao deletar");
             }
 
-            return RedirectToAction("Detalhes");
+            return RedirectToAction("ListaDeVeiculos");
+        }
+        #endregion
+
+        #region Veiculo Alugado
+        public IActionResult Aluguel()
+        {
+            _toastNotification.AddSuccessToastMessage("Veiculo alugado com sucesso!");
+            return View();
         }
         #endregion
     }

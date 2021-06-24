@@ -8,10 +8,6 @@ namespace LoKMais.Models.ViewModels
 {
     public class UsuarioViewModel : Cliente
     {
-        [Required(ErrorMessage = "Digite seu nome completo")]
-        [Display(Name = "Nome Completo")]
-        public string NomeCompleto { get; set; }
-
         [Required(ErrorMessage = "Número de CPF Inválido")]
         [RegularExpression(@"[0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[-][0-9]{2}", ErrorMessage = "Número de CPF Inválido")]
         [Display(Name = "CPF")]
